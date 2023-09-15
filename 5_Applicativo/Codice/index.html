@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title> ImageDots </title>
+
+	<meta charset="UTF-8">
+	<meta name="author" content="Alexandru Ciobanu">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="Style/style.css">
+
+</head>
+
+<body>
+	<div id="app">
+		<div id="navbar">
+			<div class="navbar-item">File</div>
+			<div class="navbar-item"><a onclick="saveCanvas()">Save</a></div>
+		</div>
+
+		<div id="toolbar">
+			<div style="background-color: #393E46;" class="toolbar-item">
+				<img src="Img/Cursor.png" alt="">
+			</div>
+			<div class="toolbar-item">
+				<img src="Img/Full Stop.png" alt="">
+			</div>
+			<div class="toolbar-item">
+				<img src="Img/Select None.png" alt="">
+			</div>
+		</div>
+
+		<div id="workspace">
+			<canvas id="workspace-canvas">
+
+			</canvas>
+		</div>
+	</div>
+
+	<script src="test.js"></script>
+</body>
+
+</html>

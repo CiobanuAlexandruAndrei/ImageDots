@@ -1,0 +1,3 @@
+https://codepen.io/JWLD/pen/JrayLd
+https://dirask.com/posts/JavaScript-draw-point-on-canvas-element-PpOBLD
+http://www.java2s.com/ref/javascript/html-canvas-remove-object-from-canvas.html
