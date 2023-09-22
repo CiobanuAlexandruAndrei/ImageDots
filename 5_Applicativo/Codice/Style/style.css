@@ -151,3 +151,21 @@ body {}
   overflow: auto;
 }
 
+
+/* #file-selector::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+#file-selector::before {
+  content: 'Open';
+  display: inline-block;
+  outline: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+} */
+
+
+
+#file-selecor{
+  visibility: hidden
+}

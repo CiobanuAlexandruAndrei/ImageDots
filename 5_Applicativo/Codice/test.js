@@ -47,7 +47,7 @@ function saveCanvas() {
     link.click();
 }
 
-function addDot(event){
+function addDot(event) {
     var rect = canvas.getBoundingClientRect();
     var scaleX = canvas.width / rect.width;
     var scaleY = canvas.height / rect.height;
@@ -67,7 +67,7 @@ function addDot(event){
     oneDot = dot;
 }
 
-function moveDot(){
+function moveDot() {
     // let x = 0, y = 0;
     // let isMouseDown = false;
 
@@ -96,7 +96,7 @@ function moveDot(){
     // paintCanvas.addEventListener('mouseout', stopDrawing);
 }
 
-function selectDot(event){
+function selectDot(event) {
     var rect = canvas.getBoundingClientRect();
     var scaleX = canvas.width / rect.width;
     var scaleY = canvas.height / rect.height;
@@ -104,15 +104,15 @@ function selectDot(event){
     var x = Math.round((event.x - rect.left) * scaleX);
     var y = Math.round((event.y - rect.top) * scaleY);
 
-    for(var dot of dots){
-        if (Math.abs(dot.x - x) < 10 && Math.abs(dot.y - y) < 10 ){
+    for (var dot of dots) {
+        if (Math.abs(dot.x - x) < 10 && Math.abs(dot.y - y) < 10) {
             console.log(dot.label + " schiacciato");
             break;
         }
     }
 }
 
-function selectFreeMode(){
+function selectFreeMode() {
     canvas.removeEventListener('mousedown', addDot);
     canvas.addEventListener('mousedown', selectDot);
 
@@ -130,7 +130,7 @@ function selectFreeMode(){
 
 }
 
-function selectAddMode(){
+function selectAddMode() {
     canvas.removeEventListener('mousedown', selectDot);
     canvas.addEventListener('mousedown', addDot);
     var e = document.getElementById("free-mode-option");
@@ -146,15 +146,40 @@ function selectAddMode(){
     e3.getElementsByTagName('img')[0].src = "Img/SelectDark.png";
 }
 
+
+function getImgData() {
+    const files = chooseFile.files[0];
+    if (files) {
+        const reader = new FileReader();
+
+        reader.addEventListener("load", function (theFile) {
+          
+            var image = new Image();
+            image.src = theFile.target.result;;
+            
+            image.addEventListener("load", function(){
+                canvas.style.backgroundImage = 'url("' + this.src + '") ';
+                canvas.style.backgroundSize = 'contain';
+                canvas.width = this.width;
+                canvas.height = this.height;
+            });
+
+        });
+        reader.readAsDataURL(files);
+    }
+}
+
+function closeImage(){
+    // da fare dopo spostamento puntini
+}
+
 const canvas = document.getElementById("workspace-canvas");
 const context = canvas.getContext('2d');
+const chooseFile = document.getElementById("file-selector");
 
-var img = new Image();
-img.src = "Img/pika.png";
-canvas.style.backgroundImage = 'url("Img/pika.png") ';
-canvas.style.backgroundSize = 'contain';
-canvas.width = img.width;
-canvas.height = img.height;
+chooseFile.addEventListener("change", function () {
+    getImgData();
+});
 
 
 
