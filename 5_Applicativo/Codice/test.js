@@ -63,6 +63,15 @@ function drawCanvas(){
     }
 }
 
+function clearSelectedDot(){
+    if (selectedDot != null) {
+        selectedDot.color = "#000";
+        clearCanvas();
+        drawCanvas();
+        selectedDot = null;
+    }
+}
+
 function addDot(event) {
     var rect = canvas.getBoundingClientRect();
     var scaleX = canvas.width / rect.width;
@@ -105,6 +114,7 @@ const moveDot = event => {
 }
 
 function selectDot(event) {
+    var deleteOption = document.getElementById("delete-option");
     var rect = canvas.getBoundingClientRect();
     var scaleX = canvas.width / rect.width;
     var scaleY = canvas.height / rect.height;
@@ -117,25 +127,28 @@ function selectDot(event) {
     for (var dot of dots) {
         if (Math.abs(dot.x - x) < 10 && Math.abs(dot.y - y) < 10) {
             console.log(dot.label + " schiacciato");
-            
-            if(selectedDot != null){
-                selectedDot.color = "#000";
-                clearCanvas();
-                drawCanvas();
-            }
-
             dot.color = "#266DD3";
+
+            if(dot != selectedDot && selectedDot != null){
+                clearSelectedDot();
+                console.log("gaga");
+            }
+            
             selectedDot = dot;
             selected = true;
+
+            clearCanvas();
+            drawCanvas();
+
             break;
         }
     }
 
     if(!selected){
-        selectedDot.color = "#000";
-        clearCanvas();
-        drawCanvas();
-        selectedDot = null;
+        clearSelectedDot();
+        deleteOption.style.display = "none";
+    }else{
+        deleteOption.style.display = "block";
     }
     
 }
@@ -157,7 +170,6 @@ function selectFreeMode() {
     var e3 = document.getElementById("select-mode-option");
     e3.style.background = "#F7F7F7";
     e3.getElementsByTagName('img')[0].src = "Img/SelectDark.png";
-
 }
 
 function selectAddMode() {
@@ -176,18 +188,33 @@ function selectAddMode() {
     var e3 = document.getElementById("select-mode-option");
     e3.style.background = "#F7F7F7";
     e3.getElementsByTagName('img')[0].src = "Img/SelectDark.png";
+
+    clearSelectedDot();
+}
+
+function selectDeleteMode(){
+    var deleteOption = document.getElementById("delete-option");
+    for(var i = 0; i < dots.length; i++){
+        if(selectedDot == dots[i]){
+            dots.splice(i, 1);
+        }
+    }
+    deleteOption.style.display = "none";
+    clearSelectedDot();
 }
 
 
 function getImgData() {
     const files = chooseFile.files[0];
     if (files) {
+        dotsNum = 1;
+
         const reader = new FileReader();
 
         reader.addEventListener("load", function (theFile) {
           
             var image = new Image();
-            image.src = theFile.target.result;;
+            image.src = theFile.target.result;
             
             image.addEventListener("load", function(){
                 canvas.style.backgroundImage = 'url("' + this.src + '") ';
