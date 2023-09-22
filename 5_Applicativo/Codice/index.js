@@ -41,7 +41,9 @@ class Dot {
             var textX = pointX - 15;
             var textY = Math.round(pointY - this.size - 3);
 
-            context.font = '16px Nunito';
+            var calulatedFont = Math.round((16.0 / 5.0) * this.size);
+
+            context.font = calulatedFont + 'px Nunito';
             context.fillStyle = this.color;
             context.textAlign = 'center';
             context.fillText(this.label, textX, textY);
