@@ -1,7 +1,13 @@
 
-var dotsNum = 1;
+var dotsNum = 1; // fare un array per vedere quelli riutilizzabili
 var dots = [];
 var movedImage = null;
+var isMouseDown = false;
+var isSelectionMode = false;
+var selectedDot = null;
+var x = 0;
+var y = 0;
+
 
 class Dot {
     constructor() {
@@ -47,6 +53,16 @@ function saveCanvas() {
     link.click();
 }
 
+function clearCanvas(){
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function drawCanvas(){
+    for (var dot of dots) {
+        dot.draw(context);
+    }
+}
+
 function addDot(event) {
     var rect = canvas.getBoundingClientRect();
     var scaleX = canvas.width / rect.width;
@@ -67,33 +83,25 @@ function addDot(event) {
     oneDot = dot;
 }
 
-function moveDot() {
-    // let x = 0, y = 0;
-    // let isMouseDown = false;
+const stopMovingDot = () => { isMouseDown = false; }
+const startMovingDot = event => {
+    isMouseDown = true;
+    [x, y] = [event.offsetX, event.offsetY];
+}
+const moveDot = event => {
+    if (isMouseDown && isSelectionMode && selectedDot != null) {
+        const newX = event.offsetX;
+        const newY = event.offsetY;
+        x = newX;
+        y = newY;
 
-    // const stopDrawing = () => { isMouseDown = false; }
-    // const startDrawing = event => {
-    //     isMouseDown = true;
-    //     [x, y] = [event.offsetX, event.offsetY];
-    // }
-    // const drawLine = event => {
-    //     if (isMouseDown) {
-    //         const newX = event.offsetX;
-    //         const newY = event.offsetY;
-    //         context.beginPath();
-    //         context.moveTo(x, y);
-    //         context.lineTo(newX, newY);
-    //         context.stroke();
-    //         //[x, y] = [newX, newY];
-    //         x = newX;
-    //         y = newY;
-    //     }
-    // }
+        clearCanvas();
+        selectedDot.x = x;
+        selectedDot.y = y;
+        drawCanvas();
 
-    // paintCanvas.addEventListener('mousedown', startDrawing);
-    // paintCanvas.addEventListener('mousemove', drawLine);
-    // paintCanvas.addEventListener('mouseup', stopDrawing);
-    // paintCanvas.addEventListener('mouseout', stopDrawing);
+        console.log(x, y);
+    }
 }
 
 function selectDot(event) {
@@ -104,15 +112,37 @@ function selectDot(event) {
     var x = Math.round((event.x - rect.left) * scaleX);
     var y = Math.round((event.y - rect.top) * scaleY);
 
+    var selected = false;
+
     for (var dot of dots) {
         if (Math.abs(dot.x - x) < 10 && Math.abs(dot.y - y) < 10) {
             console.log(dot.label + " schiacciato");
+            
+            if(selectedDot != null){
+                selectedDot.color = "#000";
+                clearCanvas();
+                drawCanvas();
+            }
+
+            dot.color = "#266DD3";
+            selectedDot = dot;
+            selected = true;
             break;
         }
     }
+
+    if(!selected){
+        selectedDot.color = "#000";
+        clearCanvas();
+        drawCanvas();
+        selectedDot = null;
+    }
+    
 }
 
 function selectFreeMode() {
+    isSelectionMode = true;
+
     canvas.removeEventListener('mousedown', addDot);
     canvas.addEventListener('mousedown', selectDot);
 
@@ -131,6 +161,8 @@ function selectFreeMode() {
 }
 
 function selectAddMode() {
+    isSelectionMode = false;
+
     canvas.removeEventListener('mousedown', selectDot);
     canvas.addEventListener('mousedown', addDot);
     var e = document.getElementById("free-mode-option");
@@ -181,5 +213,7 @@ chooseFile.addEventListener("change", function () {
     getImgData();
 });
 
-
-
+canvas.addEventListener('mousedown', startMovingDot);
+canvas.addEventListener('mousemove', moveDot);
+canvas.addEventListener('mouseup', stopMovingDot);
+canvas.addEventListener('mouseout', stopMovingDot);
