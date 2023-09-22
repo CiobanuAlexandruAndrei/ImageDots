@@ -1,8 +1,9 @@
 
 var dotsNum = 1; // fare un array per vedere quelli riutilizzabili
 var dotsNums = [];
-
+var dotSize = 5;
 var dots = [];
+
 var movedImage = null;
 var isMouseDown = false;
 var isSelectionMode = false;
@@ -48,6 +49,11 @@ class Dot {
     }
 }
 
+function getDotSize(){
+    var range = document.getElementById("dotSizeRange");
+    dotSize = range.value;
+}
+
 function saveCanvas() {
     var link = document.createElement('a');
     link.download = 'image.png';
@@ -85,6 +91,7 @@ function addDot(event) {
     var dot = new Dot();
     dot.x = x;
     dot.y = y;
+    dot.size = dotSize;
 
     var foundNum = -1;
     for (var i = 0; i < dotsNums.length; i++) {
