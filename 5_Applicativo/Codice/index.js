@@ -11,6 +11,8 @@ var selectedDot = null;
 var x = 0;
 var y = 0;
 
+var areDotsConnected = false;
+
 
 class Dot {
     constructor() {
@@ -51,6 +53,26 @@ class Dot {
     }
 }
 
+class Line{
+    constructor(fromX, fromY, toX, toY){
+        this.fromX = fromX;
+        this.fromY = fromY;
+        this.toX = toX;
+        this.toY = toY;
+        this.size = 3;
+        this.color = '#000';
+    }
+
+    draw(context){
+        context.beginPath();
+        context.lineWidth = this.size;
+        context.moveTo(this.fromX, this.fromY);
+        context.lineTo(this.toX, this.toY);
+        context.strokeStyle = this.color;
+        context.stroke();
+    }
+}
+
 function getDotSize(){
     var range = document.getElementById("dotSizeRange");
     dotSize = range.value;
@@ -71,6 +93,31 @@ function drawCanvas() {
     for (var dot of dots) {
         dot.draw(dotsContext);
     }
+}
+
+function connectDots(){
+    var connectDotsButton = document.getElementById("connect-dots-menu");
+    var connectDotsText = document.getElementById("connect-dots-menu-text");
+
+    if(!areDotsConnected){
+        areDotsConnected = true;
+        connectDotsText.innerText = "Deconnect dots";
+        connectDotsButton.style.backgroundColor = "#393E46";
+
+        var dotBefore = dots[dots.length - 1];
+        for (var i = 0; i < dots.length; i++) {
+            var line = new Line(dotBefore.x, dotBefore.y, dots[i].x, dots[i].y); // TODO: aggiungere come attributi beforeDot e afterDot così non devo sempre cambiare coordinate
+            line.draw(dotsContext);
+            dotBefore = dots[i];
+        }
+    }else{
+        connectDotsText.innerText = "Connect dots";
+        connectDotsButton.style.backgroundColor = "#87CBB9";
+        areDotsConnected = false;
+        clearCanvas();
+        drawCanvas();
+    }
+    
 }
 
 function clearSelectedDot() {
@@ -131,6 +178,10 @@ const moveDot = event => {
         const newY = event.offsetY;
         x = newX;
         y = newY;
+
+        if(areDotsConnected){
+            connectDots(); // toglie i collegamenti
+        }
 
         clearCanvas();
         selectedDot.x = x;

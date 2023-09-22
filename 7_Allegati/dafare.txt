@@ -1,2 +1,3 @@
 - layer
 - puntini che si collegano
+- grandezza puntini selezionati

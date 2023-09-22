@@ -8,7 +8,7 @@
   color: #393E46;
 }
 
-body {}
+
 
 .col-1 {
   width: 8.33%;
@@ -256,4 +256,31 @@ input[type=range][orient=vertical] {
 #range-option{
   padding: 10px 0;
   height: inherit;
+}
+
+#connect-dots-menu{
+  position: fixed;
+  top: 90%;
+  left: 90%;
+  display: flex;
+  
+  background-color: #87CBB9;
+  padding: 10px;
+
+}
+
+#connect-dots-menu:hover{
+  cursor: pointer;
+}
+
+#connect-dots-menu-text{
+  font-size: 16px;
+  font-weight: 800;
+  color: #F7F7F7;
+}
+
+
+#connect-dots-menu-img img{
+  height: 35px;
+  padding-bottom: 15px;
 }
