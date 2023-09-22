@@ -16,12 +16,12 @@
 <body>
 	<div id="app">
 		<div id="navbar">
-			<div class="navbar-item">File</div>
+			<!-- <div class="navbar-item">File</div> -->
 			<div class="navbar-item">
 				<input type="file" style="width:0px;visibility: hidden;" name="file-selector" id="file-selector" accept=".jpg, .jpeg, .png">
-				<label for="file-selector">Open</label>
+				<label id="label-for-file-selector" for="file-selector">Open</label>
 			</div>
-			<div class="navbar-item">Close</div>
+			<div class="navbar-item"><a onclick="location.reload()">Close</a></div>
 			<div class="navbar-item"><a onclick="saveCanvas()">Save</a></div>
 		</div>
 
@@ -48,7 +48,7 @@
 		</div>
 	</div>
 
-	<script src="test.js"></script>
+	<script src="index.js"></script>
 </body>
 
 </html>

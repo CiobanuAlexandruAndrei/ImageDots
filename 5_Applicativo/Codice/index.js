@@ -1,5 +1,7 @@
 
 var dotsNum = 1; // fare un array per vedere quelli riutilizzabili
+var dotsNums = [];
+
 var dots = [];
 var movedImage = null;
 var isMouseDown = false;
@@ -53,17 +55,17 @@ function saveCanvas() {
     link.click();
 }
 
-function clearCanvas(){
+function clearCanvas() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function drawCanvas(){
+function drawCanvas() {
     for (var dot of dots) {
         dot.draw(context);
     }
 }
 
-function clearSelectedDot(){
+function clearSelectedDot() {
     if (selectedDot != null) {
         selectedDot.color = "#000";
         clearCanvas();
@@ -83,7 +85,24 @@ function addDot(event) {
     var dot = new Dot();
     dot.x = x;
     dot.y = y;
-    dot.label = dotsNum;
+
+    var foundNum = -1;
+    for (var i = 0; i < dotsNums.length; i++) {
+        if (dotsNums[i] == false) {
+            foundNum = i;
+            dotsNums[i] = true;
+            dot.label = foundNum + 1;
+            break;
+        }
+    }
+
+    if (foundNum == -1) {
+        dot.label = dotsNums.length + 1;
+        dotsNums.push(true);
+    }
+
+    console.log(dotsNums);
+
     dot.draw(context);
 
     dots.push(dot);
@@ -129,11 +148,11 @@ function selectDot(event) {
             console.log(dot.label + " schiacciato");
             dot.color = "#266DD3";
 
-            if(dot != selectedDot && selectedDot != null){
+            if (dot != selectedDot && selectedDot != null) {
                 clearSelectedDot();
                 console.log("gaga");
             }
-            
+
             selectedDot = dot;
             selected = true;
 
@@ -144,13 +163,13 @@ function selectDot(event) {
         }
     }
 
-    if(!selected){
+    if (!selected) {
         clearSelectedDot();
         deleteOption.style.display = "none";
-    }else{
+    } else {
         deleteOption.style.display = "block";
     }
-    
+
 }
 
 function selectFreeMode() {
@@ -192,15 +211,18 @@ function selectAddMode() {
     clearSelectedDot();
 }
 
-function selectDeleteMode(){
+function selectDeleteMode() {
     var deleteOption = document.getElementById("delete-option");
-    for(var i = 0; i < dots.length; i++){
-        if(selectedDot == dots[i]){
+    for (var i = 0; i < dots.length; i++) {
+        var indx = parseInt(selectedDot.label) - 1;
+        dotsNums[indx] = false;
+        if (selectedDot == dots[i]) {
             dots.splice(i, 1);
         }
     }
     deleteOption.style.display = "none";
     clearSelectedDot();
+    console.log(dotsNums);
 }
 
 
@@ -212,11 +234,11 @@ function getImgData() {
         const reader = new FileReader();
 
         reader.addEventListener("load", function (theFile) {
-          
+
             var image = new Image();
             image.src = theFile.target.result;
-            
-            image.addEventListener("load", function(){
+
+            image.addEventListener("load", function () {
                 canvas.style.backgroundImage = 'url("' + this.src + '") ';
                 canvas.style.backgroundSize = 'contain';
                 canvas.width = this.width;
@@ -228,7 +250,7 @@ function getImgData() {
     }
 }
 
-function closeImage(){
+function closeImage() {
     // da fare dopo spostamento puntini
 }
 
