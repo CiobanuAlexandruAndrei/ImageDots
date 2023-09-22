@@ -40,7 +40,7 @@ class Dot {
             var textX = pointX - 15;
             var textY = Math.round(pointY - this.size - 3);
 
-            context.font = 'Italic 16px Nunito';
+            context.font = '16px Nunito';
             context.fillStyle = this.color;
             context.textAlign = 'center';
             context.fillText(this.label, textX, textY);
@@ -51,17 +51,17 @@ class Dot {
 function saveCanvas() {
     var link = document.createElement('a');
     link.download = 'image.png';
-    link.href = document.getElementById('workspace-canvas').toDataURL()
+    link.href = document.getElementById('dots-canvas').toDataURL()
     link.click();
 }
 
 function clearCanvas() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    dotsContext.clearRect(0, 0, dotsCanvas.width, dotsCanvas.height);
 }
 
 function drawCanvas() {
     for (var dot of dots) {
-        dot.draw(context);
+        dot.draw(dotsContext);
     }
 }
 
@@ -75,9 +75,9 @@ function clearSelectedDot() {
 }
 
 function addDot(event) {
-    var rect = canvas.getBoundingClientRect();
-    var scaleX = canvas.width / rect.width;
-    var scaleY = canvas.height / rect.height;
+    var rect = dotsCanvas.getBoundingClientRect();
+    var scaleX = dotsCanvas.width / rect.width;
+    var scaleY = dotsCanvas.height / rect.height;
 
     var x = Math.round((event.x - rect.left) * scaleX);
     var y = Math.round((event.y - rect.top) * scaleY);
@@ -103,7 +103,7 @@ function addDot(event) {
 
     console.log(dotsNums);
 
-    dot.draw(context);
+    dot.draw(dotsContext);
 
     dots.push(dot);
     dotsNum++;
@@ -134,9 +134,9 @@ const moveDot = event => {
 
 function selectDot(event) {
     var deleteOption = document.getElementById("delete-option");
-    var rect = canvas.getBoundingClientRect();
-    var scaleX = canvas.width / rect.width;
-    var scaleY = canvas.height / rect.height;
+    var rect = dotsCanvas.getBoundingClientRect();
+    var scaleX = dotsCanvas.width / rect.width;
+    var scaleY = dotsCanvas.height / rect.height;
 
     var x = Math.round((event.x - rect.left) * scaleX);
     var y = Math.round((event.y - rect.top) * scaleY);
@@ -175,8 +175,8 @@ function selectDot(event) {
 function selectFreeMode() {
     isSelectionMode = true;
 
-    canvas.removeEventListener('mousedown', addDot);
-    canvas.addEventListener('mousedown', selectDot);
+    dotsCanvas.removeEventListener('mousedown', addDot);
+    dotsCanvas.addEventListener('mousedown', selectDot);
 
     var e = document.getElementById("free-mode-option");
     e.style.background = "#393E46";
@@ -194,8 +194,8 @@ function selectFreeMode() {
 function selectAddMode() {
     isSelectionMode = false;
 
-    canvas.removeEventListener('mousedown', selectDot);
-    canvas.addEventListener('mousedown', addDot);
+    dotsCanvas.removeEventListener('mousedown', selectDot);
+    dotsCanvas.addEventListener('mousedown', addDot);
     var e = document.getElementById("free-mode-option");
     e.style.background = "#F7F7F7";
     e.getElementsByTagName('img')[0].src = "Img/CursorDark.png";
@@ -243,6 +243,12 @@ function getImgData() {
                 canvas.style.backgroundSize = 'contain';
                 canvas.width = this.width;
                 canvas.height = this.height;
+
+                dotsCanvas.width = this.width;
+                dotsCanvas.height = this.height;
+
+                drawingCanvas.width = this.width;
+                drawingCanvas.height = this.height;
             });
 
         });
@@ -255,14 +261,20 @@ function closeImage() {
 }
 
 const canvas = document.getElementById("workspace-canvas");
+const dotsCanvas = document.getElementById("dots-canvas");
+const drawingCanvas = document.getElementById("drawing-canvas");
+
 const context = canvas.getContext('2d');
+const dotsContext = dotsCanvas.getContext('2d');
+const drawingContext = drawingCanvas.getContext('2d');
+
 const chooseFile = document.getElementById("file-selector");
 
 chooseFile.addEventListener("change", function () {
     getImgData();
 });
 
-canvas.addEventListener('mousedown', startMovingDot);
-canvas.addEventListener('mousemove', moveDot);
-canvas.addEventListener('mouseup', stopMovingDot);
-canvas.addEventListener('mouseout', stopMovingDot);
+dotsCanvas.addEventListener('mousedown', startMovingDot);
+dotsCanvas.addEventListener('mousemove', moveDot);
+dotsCanvas.addEventListener('mouseup', stopMovingDot);
+dotsCanvas.addEventListener('mouseout', stopMovingDot);

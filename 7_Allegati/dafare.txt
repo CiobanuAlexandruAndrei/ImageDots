@@ -1,2 +1,2 @@
-- numeri puntini riutilizzabili
+- layer
 - puntini che si collegano

@@ -38,13 +38,43 @@
 			<div id="delete-option" style="display: none;" onclick="selectDeleteMode()" class="toolbar-item">
 				<img src="Img/Delete.png" alt="">
 			</div>
+			<div id="range-option" class="toolbar-item">
+				<input type="range" name="" orient="vertical" id="">
+			</div>
+		</div>
+
+		<div id="layer-menu">
+			<!-- <div class="layer-menu-item">
+				<div class="layer-menu-item-text">
+					Image
+				</div>
+				<div class="layer-menu-item-visibility">
+					<img src="Img/EyeDark.png" alt="">
+				</div>
+			</div> -->
+			<div class="layer-menu-item">
+				<div class="layer-menu-item-text">
+					Dots
+				</div>
+				<div class="layer-menu-item-visibility">
+					<img src="Img/EyeDark.png" alt="">
+				</div>
+			</div>
+			<div class="layer-menu-item">
+				<div class="layer-menu-item-text">
+					Drawings
+				</div>
+				<div class="layer-menu-item-visibility">
+					<img src="Img/EyeDark.png" alt="">
+				</div>
+			</div>
 		</div>
 
 		<div id="workspace">
-			<img id="prova-img" />
-			<canvas id="workspace-canvas">
-
-			</canvas>
+			<canvas id="workspace-canvas"></canvas>
+			<canvas id="dots-canvas"></canvas>
+			<canvas id="drawing-canvas"></canvas>
+			<!-- <canvas id="mix-canvas"></canvas> -->
 		</div>
 	</div>
 
