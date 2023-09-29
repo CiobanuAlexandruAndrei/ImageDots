@@ -255,6 +255,12 @@ input[type=range][orient=vertical] {
   background: #fff0;
 }
 
+input[type=color]{
+  border: none;
+  width: 50px;
+  height: 50px;
+}
+
 #range-option{
   padding: 10px 0;
   height: inherit;

@@ -21,6 +21,11 @@ let drawingLayerSelected = false;
 let dotsLayerVisibility = false;  // se tutti e due sono on si usa il context del terzo canvas
 let drawingLayerVisibility = false;
 
+let drawingSize = 5;
+let drawingColor = "#000";
+let lines = []
+
+
 
 class Dot {
     constructor() {
@@ -72,11 +77,12 @@ class Line{
     }
 
     draw(context){
+        context.lineCap = 'round';
         context.beginPath();
         context.lineWidth = this.size;
         context.moveTo(this.fromX, this.fromY);
         context.lineTo(this.toX, this.toY);
-        context.strokeStyle = this.color;
+        //context.strokeStyle = this.color;
         context.stroke();
     }
 }
@@ -90,6 +96,11 @@ function getDotSize(){
         refreshCanvas();
     }
     
+}
+
+function getDrawingSize(){
+    let range = document.getElementById("drawingSizeRange");
+    drawingSize = range.value;
 }
 
 function saveCanvas() {
@@ -212,6 +223,28 @@ const moveDot = event => {
     }
 }
 
+const stopDrawingLine = () => { isMouseDown = false; }
+const startDrawingLine = event => {
+    isMouseDown = true;
+    [x, y] = [event.offsetX, event.offsetY];
+}
+const drawLine = event => {
+    if ( isMouseDown ) {
+        const newX = event.offsetX;
+        const newY = event.offsetY;
+
+        line = new Line(x, y, newX, newY);
+        line.size = drawingSize;
+        line.draw(drawingContext);
+        
+        lines.push(line);
+
+        //[x, y] = [newX, newY];
+        x = newX;
+        y = newY;
+    }
+}
+
 function selectDot(event) {
     let deleteOption = document.getElementById("delete-option");
     let rect = dotsCanvas.getBoundingClientRect();
@@ -325,7 +358,7 @@ function selectDeleteMode() {
 
     deleteOption.style.display = "none";
     clearSelectedDot();
-    console.log(dotsNums);
+    //console.log(dotsNums);
 }
 
 
@@ -424,6 +457,32 @@ function selectDrawingLayer() {
     connectDotsElement.style.display = "none";
 }
 
+function selectDrawingFreeMode(){
+    drawingCanvas.removeEventListener('mousedown', startDrawingLine);
+    drawingCanvas.removeEventListener('mousemove', drawLine);
+    drawingCanvas.removeEventListener('mouseup', stopDrawingLine);
+    drawingCanvas.removeEventListener('mouseout', stopDrawingLine);
+
+    selectDrawingFreeModeElement.style.backgroundColor = "#393E46";
+    selectDrawingFreeModeElement.getElementsByTagName("img")[0].src = "Img/CursorLight.png";
+
+    selectPenModeElement.style.backgroundColor = "#F7F7F7";
+    selectPenModeElement.getElementsByTagName("img")[0].src = "Img/EditDark.png";
+}
+
+function selectPenMode(){
+    drawingCanvas.addEventListener('mousedown', startDrawingLine);
+    drawingCanvas.addEventListener('mousemove', drawLine);
+    drawingCanvas.addEventListener('mouseup', stopDrawingLine);
+    drawingCanvas.addEventListener('mouseout', stopDrawingLine);
+
+    selectDrawingFreeModeElement.style.backgroundColor = "#F7F7F7";
+    selectDrawingFreeModeElement.getElementsByTagName("img")[0].src = "Img/CursorDark.png";
+
+    selectPenModeElement.style.backgroundColor = "#393E46";
+    selectPenModeElement.getElementsByTagName("img")[0].src = "Img/EditLight.png";
+}
+
 
 const canvas = document.getElementById("workspace-canvas");
 const dotsCanvas = document.getElementById("dots-canvas");
@@ -435,8 +494,10 @@ let dotImageElement = document.getElementById("dots-layer-selection-image");
 let drawingElement = document.getElementById("drawing-layer-selection");
 let drawingTextElement = document.getElementById("drawing-layer-selection-text");
 let drawingImageElement = document.getElementById("drawing-layer-selection-image");
-
 let connectDotsElement = document.getElementById("connect-dots-menu");
+
+let selectDrawingFreeModeElement = document.getElementById("select-free-drawing-mode-option");
+let selectPenModeElement = document.getElementById("select-pen-mode-option");
 
 const context = canvas.getContext('2d');
 const dotsContext = dotsCanvas.getContext('2d');
@@ -452,5 +513,10 @@ dotsCanvas.addEventListener('mousedown', startMovingDot);
 dotsCanvas.addEventListener('mousemove', moveDot);
 dotsCanvas.addEventListener('mouseup', stopMovingDot);
 dotsCanvas.addEventListener('mouseout', stopMovingDot);
+
+// drawingCanvas.addEventListener('mousedown', startDrawingLine);
+// drawingCanvas.addEventListener('mousemove', drawLine);
+// drawingCanvas.addEventListener('mouseup', stopDrawingLine);
+// drawingCanvas.addEventListener('mouseout', stopDrawingLine);
 
 selectDotsLayer();

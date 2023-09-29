@@ -48,10 +48,10 @@
 			</div> -->
 
 			<!-- Drawing layer -->
-			<div style="display: none; border-top: none; background-color: #393E46;" class="toolbar-item drawing-menu-element">
+			<div id="select-free-drawing-mode-option" style="display: none; border-top: none; background-color: #393E46;" onclick="selectDrawingFreeMode()" class="toolbar-item drawing-menu-element">
 				<img src="Img/CursorLight.png" alt="">
 			</div>
-			<div style="display: none; border-top: none;" class="toolbar-item drawing-menu-element">
+			<div id="select-pen-mode-option" style="display: none; border-top: none;" onclick="selectPenMode()" class="toolbar-item drawing-menu-element">
 				<img src="Img/EditDark.png" alt="">
 			</div>
 			<div style="display: none;" class="toolbar-item drawing-menu-element">
@@ -60,10 +60,17 @@
 			<div style="display: none;" class="toolbar-item drawing-menu-element">
 				<img src="Img/CircleDark.png" alt="">
 			</div>
+			<div style="display: none;" class="toolbar-item drawing-menu-element">
+				<img src="Img/EraserDark.png" alt="">
+			</div>
 
 			<div id="range-option" style="display: none;" id="drawing-range-option" class="toolbar-item drawing-menu-element">
-				<input id="drawingSizeRange" type="range" name="" oninput="getDrawingSize()" value="5" min="5" max="50" step="5"
+				<input id="drawingSizeRange" type="range" name="" oninput="getDrawingSize()" value="1" min="1" max="50" step="5"
 					orient="vertical">
+			</div>
+
+			<div style="display: none;" class="toolbar-item drawing-menu-element">
+				<input type="color" name="" id="">
 			</div>
 		</div>
 
