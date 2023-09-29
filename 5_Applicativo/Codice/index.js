@@ -1,17 +1,17 @@
 
-var dotsNum = 1; // fare un array per vedere quelli riutilizzabili
-var dotsNums = [];
-var dotSize = 5;
-var dots = [];
+let dotsNum = 1; // fare un array per vedere quelli riutilizzabili
+let dotsNums = [];
+let dotSize = 5;
+let dots = [];
 
-var movedImage = null;
-var isMouseDown = false;
-var isSelectionMode = false;
-var selectedDot = null;
-var x = 0;
-var y = 0;
+let movedImage = null;
+let isMouseDown = false;
+let isSelectionMode = false;
+let selectedDot = null;
+let x = 0;
+let y = 0;
 
-var areDotsConnected = false;
+let areDotsConnected = false;
 
 
 class Dot {
@@ -31,8 +31,8 @@ class Dot {
             this.size = 5;
         }
 
-        var pointX = Math.round(this.x);
-        var pointY = Math.round(this.y);
+        let pointX = Math.round(this.x);
+        let pointY = Math.round(this.y);
 
         context.beginPath();
         context.fillStyle = this.color;
@@ -40,10 +40,10 @@ class Dot {
         context.fill();
 
         if (this.label) {
-            var textX = pointX - 15;
-            var textY = Math.round(pointY - this.size - 3);
+            let textX = pointX - 15;
+            let textY = Math.round(pointY - this.size - 3);
 
-            var calulatedFont = Math.round((16.0 / 5.0) * this.size);
+            let calulatedFont = Math.round((16.0 / 5.0) * this.size);
 
             context.font = calulatedFont + 'px Nunito';
             context.fillStyle = this.color;
@@ -74,12 +74,18 @@ class Line{
 }
 
 function getDotSize(){
-    var range = document.getElementById("dotSizeRange");
+    let lastDotSize; 
+    let range = document.getElementById("dotSizeRange");
     dotSize = range.value;
+
+    if(lastDotSize != dotSize && selectedDot.size != dotSize){ 
+        selectedDot.size = dotSize;
+        refreshCanvas();
+    }
 }
 
 function saveCanvas() {
-    var link = document.createElement('a');
+    let link = document.createElement('a');
     link.download = 'image.png';
     link.href = document.getElementById('dots-canvas').toDataURL()
     link.click();
@@ -90,7 +96,7 @@ function clearCanvas() {
 }
 
 function drawCanvas() {
-    for (var dot of dots) {
+    for (let dot of dots) {
         dot.draw(dotsContext);
     }
 
@@ -105,17 +111,17 @@ function refreshCanvas(){
 }
 
 function drawDotsConnections(){
-    var dotBefore = dots[dots.length - 1];
-    for (var i = 0; i < dots.length; i++) {
-        var line = new Line(dotBefore.x, dotBefore.y, dots[i].x, dots[i].y); // TODO: aggiungere come attributi beforeDot e afterDot così non devo sempre cambiare coordinate
+    let dotBefore = dots[dots.length - 1];
+    for (let i = 0; i < dots.length; i++) {
+        let line = new Line(dotBefore.x, dotBefore.y, dots[i].x, dots[i].y); // TODO: aggiungere come attributi beforeDot e afterDot così non devo sempre cambiare coordinate
         line.draw(dotsContext);
         dotBefore = dots[i];
     }
 }
 
 function connectDots(){
-    var connectDotsButton = document.getElementById("connect-dots-menu");
-    var connectDotsText = document.getElementById("connect-dots-menu-text");
+    let connectDotsButton = document.getElementById("connect-dots-menu");
+    let connectDotsText = document.getElementById("connect-dots-menu-text");
 
     if(!areDotsConnected){
         areDotsConnected = true;
@@ -140,20 +146,20 @@ function clearSelectedDot() {
 }
 
 function addDot(event) {
-    var rect = dotsCanvas.getBoundingClientRect();
-    var scaleX = dotsCanvas.width / rect.width;
-    var scaleY = dotsCanvas.height / rect.height;
+    let rect = dotsCanvas.getBoundingClientRect();
+    let scaleX = dotsCanvas.width / rect.width;
+    let scaleY = dotsCanvas.height / rect.height;
 
-    var x = Math.round((event.x - rect.left) * scaleX);
-    var y = Math.round((event.y - rect.top) * scaleY);
+    let x = Math.round((event.x - rect.left) * scaleX);
+    let y = Math.round((event.y - rect.top) * scaleY);
 
-    var dot = new Dot();
+    let dot = new Dot();
     dot.x = x;
     dot.y = y;
     dot.size = dotSize;
 
-    var foundNum = -1;
-    for (var i = 0; i < dotsNums.length; i++) {
+    let foundNum = -1;
+    for (let i = 0; i < dotsNums.length; i++) {
         if (dotsNums[i] == false) {
             foundNum = i;
             dotsNums[i] = true;
@@ -207,17 +213,17 @@ const moveDot = event => {
 }
 
 function selectDot(event) {
-    var deleteOption = document.getElementById("delete-option");
-    var rect = dotsCanvas.getBoundingClientRect();
-    var scaleX = dotsCanvas.width / rect.width;
-    var scaleY = dotsCanvas.height / rect.height;
+    let deleteOption = document.getElementById("delete-option");
+    let rect = dotsCanvas.getBoundingClientRect();
+    let scaleX = dotsCanvas.width / rect.width;
+    let scaleY = dotsCanvas.height / rect.height;
 
-    var x = Math.round((event.x - rect.left) * scaleX);
-    var y = Math.round((event.y - rect.top) * scaleY);
+    let x = Math.round((event.x - rect.left) * scaleX);
+    let y = Math.round((event.y - rect.top) * scaleY);
 
-    var selected = false;
+    let selected = false;
 
-    for (var dot of dots) {
+    for (let dot of dots) {
         if (Math.abs(dot.x - x) < 10 && Math.abs(dot.y - y) < 10) {
             console.log(dot.label + " schiacciato");
             dot.color = "#266DD3";
@@ -251,15 +257,15 @@ function selectFreeMode() {
     dotsCanvas.removeEventListener('mousedown', addDot);
     dotsCanvas.addEventListener('mousedown', selectDot);
 
-    var e = document.getElementById("free-mode-option");
+    let e = document.getElementById("free-mode-option");
     e.style.background = "#393E46";
     e.getElementsByTagName('img')[0].src = "Img/CursorLight.png";
 
-    var e2 = document.getElementById("add-mode-option");
+    let e2 = document.getElementById("add-mode-option");
     e2.style.background = "#F7F7F7";
     e2.getElementsByTagName('img')[0].src = "Img/DotDark.png";
 
-    var e3 = document.getElementById("select-mode-option");
+    let e3 = document.getElementById("select-mode-option");
     e3.style.background = "#F7F7F7";
     e3.getElementsByTagName('img')[0].src = "Img/SelectDark.png";
 }
@@ -269,15 +275,15 @@ function selectAddMode() {
 
     dotsCanvas.removeEventListener('mousedown', selectDot);
     dotsCanvas.addEventListener('mousedown', addDot);
-    var e = document.getElementById("free-mode-option");
+    let e = document.getElementById("free-mode-option");
     e.style.background = "#F7F7F7";
     e.getElementsByTagName('img')[0].src = "Img/CursorDark.png";
 
-    var e2 = document.getElementById("add-mode-option");
+    let e2 = document.getElementById("add-mode-option");
     e2.style.background = "#393E46";
     e2.getElementsByTagName('img')[0].src = "Img/DotLight.png";
 
-    var e3 = document.getElementById("select-mode-option");
+    let e3 = document.getElementById("select-mode-option");
     e3.style.background = "#F7F7F7";
     e3.getElementsByTagName('img')[0].src = "Img/SelectDark.png";
 
@@ -285,9 +291,9 @@ function selectAddMode() {
 }
 
 function selectDeleteMode() {
-    var deleteOption = document.getElementById("delete-option");
-    for (var i = 0; i < dots.length; i++) {
-        var indx = parseInt(selectedDot.label) - 1;
+    let deleteOption = document.getElementById("delete-option");
+    for (let i = 0; i < dots.length; i++) {
+        let indx = parseInt(selectedDot.label) - 1;
         dotsNums[indx] = false;
         if (selectedDot == dots[i]) {
             dots.splice(i, 1);
@@ -308,7 +314,7 @@ function getImgData() {
 
         reader.addEventListener("load", function (theFile) {
 
-            var image = new Image();
+            let image = new Image();
             image.src = theFile.target.result;
 
             image.addEventListener("load", function () {
