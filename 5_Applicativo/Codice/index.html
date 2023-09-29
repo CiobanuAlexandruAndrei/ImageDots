@@ -51,7 +51,7 @@
 			<div id="select-free-drawing-mode-option" style="display: none; border-top: none; background-color: #393E46;" onclick="selectDrawingFreeMode()" class="toolbar-item drawing-menu-element">
 				<img src="Img/CursorLight.png" alt="">
 			</div>
-			<div id="select-pen-mode-option" style="display: none; border-top: none;" onclick="selectPenMode()" class="toolbar-item drawing-menu-element">
+			<div id="select-pen-mode-option" style="display: none;" onclick="selectPenMode()" class="toolbar-item drawing-menu-element">
 				<img src="Img/EditDark.png" alt="">
 			</div>
 			<div style="display: none;" class="toolbar-item drawing-menu-element">
@@ -60,7 +60,7 @@
 			<div style="display: none;" class="toolbar-item drawing-menu-element">
 				<img src="Img/CircleDark.png" alt="">
 			</div>
-			<div style="display: none;" class="toolbar-item drawing-menu-element">
+			<div id="select-erase-drawing-mode-option" style="display: none;" onclick="selectEraseDrawingMode()" class="toolbar-item drawing-menu-element">
 				<img src="Img/EraserDark.png" alt="">
 			</div>
 
@@ -70,7 +70,7 @@
 			</div>
 
 			<div style="display: none;" class="toolbar-item drawing-menu-element">
-				<input type="color" name="" id="">
+				<input type="color" name="" oninput="getDrawingColor()" id="drawing-color-input">
 			</div>
 		</div>
 
