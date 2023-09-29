@@ -93,6 +93,24 @@ function drawCanvas() {
     for (var dot of dots) {
         dot.draw(dotsContext);
     }
+
+    if(areDotsConnected){
+        drawDotsConnections();
+    }
+}
+
+function refreshCanvas(){
+    clearCanvas();
+    drawCanvas();
+}
+
+function drawDotsConnections(){
+    var dotBefore = dots[dots.length - 1];
+    for (var i = 0; i < dots.length; i++) {
+        var line = new Line(dotBefore.x, dotBefore.y, dots[i].x, dots[i].y); // TODO: aggiungere come attributi beforeDot e afterDot così non devo sempre cambiare coordinate
+        line.draw(dotsContext);
+        dotBefore = dots[i];
+    }
 }
 
 function connectDots(){
@@ -104,27 +122,19 @@ function connectDots(){
         connectDotsText.innerText = "Deconnect dots";
         connectDotsButton.style.backgroundColor = "#393E46";
 
-        var dotBefore = dots[dots.length - 1];
-        for (var i = 0; i < dots.length; i++) {
-            var line = new Line(dotBefore.x, dotBefore.y, dots[i].x, dots[i].y); // TODO: aggiungere come attributi beforeDot e afterDot così non devo sempre cambiare coordinate
-            line.draw(dotsContext);
-            dotBefore = dots[i];
-        }
+        drawDotsConnections();
     }else{
         connectDotsText.innerText = "Connect dots";
         connectDotsButton.style.backgroundColor = "#87CBB9";
         areDotsConnected = false;
-        clearCanvas();
-        drawCanvas();
+        refreshCanvas();
     }
-    
 }
 
 function clearSelectedDot() {
     if (selectedDot != null) {
         selectedDot.color = "#000";
-        clearCanvas();
-        drawCanvas();
+        refreshCanvas();
         selectedDot = null;
     }
 }
@@ -159,9 +169,11 @@ function addDot(event) {
 
     console.log(dotsNums);
 
-    dot.draw(dotsContext);
-
+    //dot.draw(dotsContext);
     dots.push(dot);
+
+    refreshCanvas();
+
     dotsNum++;
 
     oneDot = dot;
@@ -179,9 +191,11 @@ const moveDot = event => {
         x = newX;
         y = newY;
 
+        /*
         if(areDotsConnected){
             connectDots(); // toglie i collegamenti
         }
+        */
 
         clearCanvas();
         selectedDot.x = x;
@@ -216,8 +230,7 @@ function selectDot(event) {
             selectedDot = dot;
             selected = true;
 
-            clearCanvas();
-            drawCanvas();
+            refreshCanvas();
 
             break;
         }
@@ -317,7 +330,7 @@ function getImgData() {
 }
 
 function closeImage() {
-    // da fare dopo spostamento puntini
+    location.reload()
 }
 
 const canvas = document.getElementById("workspace-canvas");

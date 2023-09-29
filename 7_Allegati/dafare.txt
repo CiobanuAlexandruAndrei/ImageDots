@@ -1,3 +1,6 @@
-- layer
-- puntini che si collegano
-- grandezza puntini selezionati
+- Fare che i collegamenti rimangono quando sposto i puntini
+- cambiare la grandezza di un puntino anche dopo averlo messo
+- finire i layer
+- iniziare le funzioni di disegno
+
+- quando i puntini sono tutti collegati se schiaccio una linea invece del puntino e sposto, sposto tutti i puntini insieme.
