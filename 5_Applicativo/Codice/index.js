@@ -1,6 +1,6 @@
 
-let dotsNum = 1; // fare un array per vedere quelli riutilizzabili
-let dotsNums = [];
+let dotsNum = 1; 
+// let dotsNums = [];  
 let dotSize = 5;
 let dots = [];
 
@@ -12,6 +12,14 @@ let x = 0;
 let y = 0;
 
 let areDotsConnected = false;
+
+let lastDotSize = -1;
+
+let dotsLayerSelected = false;  // solo uno alla volta può essere utilizzato
+let drawingLayerSelected = false;
+
+let dotsLayerVisibility = false;  // se tutti e due sono on si usa il context del terzo canvas
+let drawingLayerVisibility = false;
 
 
 class Dot {
@@ -74,7 +82,6 @@ class Line{
 }
 
 function getDotSize(){
-    let lastDotSize = dotSize; 
     let range = document.getElementById("dotSizeRange");
     dotSize = range.value;
 
@@ -82,6 +89,7 @@ function getDotSize(){
         selectedDot.size = dotSize;
         refreshCanvas();
     }
+    
 }
 
 function saveCanvas() {
@@ -91,11 +99,11 @@ function saveCanvas() {
     link.click();
 }
 
-function clearCanvas() {
+function clearDotCanvas() {
     dotsContext.clearRect(0, 0, dotsCanvas.width, dotsCanvas.height);
 }
 
-function drawCanvas() {
+function drawDotCanvas() {
     for (let dot of dots) {
         dot.draw(dotsContext);
     }
@@ -106,8 +114,8 @@ function drawCanvas() {
 }
 
 function refreshCanvas(){
-    clearCanvas();
-    drawCanvas();
+    clearDotCanvas();
+    drawDotCanvas();
 }
 
 function drawDotsConnections(){
@@ -195,16 +203,10 @@ const moveDot = event => {
         x = newX;
         y = newY;
 
-        /*
-        if(areDotsConnected){
-            connectDots(); // toglie i collegamenti
-        }
-        */
-
-        clearCanvas();
+        clearDotCanvas();
         selectedDot.x = x;
         selectedDot.y = y;
-        drawCanvas();
+        drawDotCanvas();
 
         console.log(x, y);
     }
@@ -234,6 +236,9 @@ function selectDot(event) {
             selectedDot = dot;
             selected = true;
 
+            document.getElementById('dotSizeRange').value = dot.size;
+            dotSize = dot.size;
+
             refreshCanvas();
 
             break;
@@ -245,6 +250,7 @@ function selectDot(event) {
         deleteOption.style.display = "none";
     } else {
         deleteOption.style.display = "block";
+
     }
 
 }
@@ -357,9 +363,80 @@ function closeImage() {
     location.reload()
 }
 
+function selectDotsLayer(){
+    dotsLayerSelected = true; 
+    drawingLayerSelected = false;
+
+    drawingCanvas.style.display = "none";
+    dotsCanvas.style.display = "block";
+
+    dotElement.style.backgroundColor = "#393E46";
+    dotTextElement.style.color = "#EEEEEE";
+    dotImageElement.src = "Img/EyeLight.png";
+
+    drawingElement.style.backgroundColor = "#EEEEEE";
+    drawingTextElement.style.color = "#393E46";
+    drawingImageElement.src = "Img/EyeDark.png";
+
+    let dotMenuItems = document.getElementsByClassName("dot-menu-element");
+    for(item of dotMenuItems){
+        if (item.id != "delete-option") {
+            item.style.display = "block";
+        }
+    }
+
+    let drawingMenuItems = document.getElementsByClassName("drawing-menu-element");
+    for (item of drawingMenuItems) {
+        item.style.display = "none";
+    }
+
+    connectDotsElement.style.display = "flex";
+}
+
+function selectDrawingLayer() {
+    dotsLayerSelected = false;
+    drawingLayerSelected = true;
+
+    dotsCanvas.style.display = "none";
+    drawingCanvas.style.display = "block";
+
+    drawingElement.style.backgroundColor = "#393E46";
+    drawingTextElement.style.color = "#EEEEEE";
+    drawingImageElement.src = "Img/EyeLight.png";
+
+    dotElement.style.backgroundColor = "#EEEEEE";
+    dotTextElement.style.color = "#393E46";
+    dotImageElement.src = "Img/EyeDark.png";
+
+    let dotMenuItems = document.getElementsByClassName("dot-menu-element");
+    for (item of dotMenuItems) {
+        if (item.id != "delete-option"){
+            item.style.display = "none";
+        }
+        
+    }
+
+    let drawingMenuItems = document.getElementsByClassName("drawing-menu-element");
+    for (item of drawingMenuItems) {
+        item.style.display = "block";
+    }
+
+    connectDotsElement.style.display = "none";
+}
+
+
 const canvas = document.getElementById("workspace-canvas");
 const dotsCanvas = document.getElementById("dots-canvas");
 const drawingCanvas = document.getElementById("drawing-canvas");
+
+let dotElement = document.getElementById("dots-layer-selection");
+let dotTextElement = document.getElementById("dots-layer-selection-text");
+let dotImageElement = document.getElementById("dots-layer-selection-image");
+let drawingElement = document.getElementById("drawing-layer-selection");
+let drawingTextElement = document.getElementById("drawing-layer-selection-text");
+let drawingImageElement = document.getElementById("drawing-layer-selection-image");
+
+let connectDotsElement = document.getElementById("connect-dots-menu");
 
 const context = canvas.getContext('2d');
 const dotsContext = dotsCanvas.getContext('2d');
@@ -375,3 +452,5 @@ dotsCanvas.addEventListener('mousedown', startMovingDot);
 dotsCanvas.addEventListener('mousemove', moveDot);
 dotsCanvas.addEventListener('mouseup', stopMovingDot);
 dotsCanvas.addEventListener('mouseout', stopMovingDot);
+
+selectDotsLayer();

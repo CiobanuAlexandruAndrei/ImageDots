@@ -162,6 +162,9 @@
   padding: 5px;
 }
 
+.layer-menu-item-text:hover{
+  cursor: pointer;
+}
 
 
 .layer-menu-item-visibility{
@@ -257,6 +260,7 @@ input[type=range][orient=vertical] {
   height: inherit;
 }
 
+
 #connect-dots-menu{
   position: fixed;
   top: 90%;
@@ -265,9 +269,6 @@ input[type=range][orient=vertical] {
   
   background-color: #87CBB9;
   padding: 10px;
-
-
-
 }
 
 #connect-dots-menu:hover{

@@ -1,6 +1,9 @@
-
-- cambiare grafica slider
-- quando schiaccio un puntino il valore dello slider cambia con il valore del puntino.
-- finire i layer
-- quando i puntini sono tutti collegati se schiaccio una linea invece del puntino e sposto, sposto tutti i puntini insieme.
 - iniziare le funzioni di disegno
+
+- visibility dei layer
+
+- quando i puntini sono tutti collegati se schiaccio una linea invece del puntino e sposto, sposto tutti i puntini insieme.
+
+- quando non è selezionata l'immagine non puoi aggiungere puntini
+
+- fare tutto a classi

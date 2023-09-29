@@ -26,20 +26,44 @@
 		</div>
 
 		<div id="toolbar">
-			<div id="free-mode-option" onclick="selectFreeMode()" style="background-color: #393E46; border-top: none;" class="toolbar-item">
+			<!-- Dots layer -->
+			<div id="free-mode-option" onclick="selectFreeMode()" style="background-color: #393E46; border-top: none;" class="toolbar-item dot-menu-element">
 				<img src="Img/CursorLight.png" alt="">
 			</div>
-			<div id="add-mode-option" onclick="selectAddMode()" class="toolbar-item">
+			<div id="add-mode-option" onclick="selectAddMode()" class="toolbar-item dot-menu-element">
 				<img src="Img/DotDark.png" alt="">
 			</div>
-			<div id="select-mode-option" onclick="" class="toolbar-item">
+			<div id="select-mode-option" onclick="" class="toolbar-item dot-menu-element">
 				<img src="Img/SelectDark.png" alt="">
 			</div>
-			<div id="delete-option" style="display: none;" onclick="selectDeleteMode()" class="toolbar-item">
+			<div id="delete-option" style="display: none;" onclick="selectDeleteMode()" class="toolbar-item dot-menu-element">
 				<img src="Img/Delete.png" alt="">
 			</div>
-			<div id="range-option" class="toolbar-item">
-				<input id="dotSizeRange" type="range" name="" oninput="getDotSize()" value="5" min="5" max="50" step="5" orient="vertical" id="">
+			<div id="range-option" class="toolbar-item dot-menu-element">
+				<input id="dotSizeRange" type="range" name="" oninput="getDotSize()" value="5" min="5" max="50" step="5" orient="vertical" >
+			</div>
+			
+			<!-- <div id="add-mode-option" onclick="test()" class="toolbar-item">
+				<img src="Img/DotDark.png" alt="">
+			</div> -->
+
+			<!-- Drawing layer -->
+			<div style="display: none; border-top: none; background-color: #393E46;" class="toolbar-item drawing-menu-element">
+				<img src="Img/CursorLight.png" alt="">
+			</div>
+			<div style="display: none; border-top: none;" class="toolbar-item drawing-menu-element">
+				<img src="Img/EditDark.png" alt="">
+			</div>
+			<div style="display: none;" class="toolbar-item drawing-menu-element">
+				<img src="Img/SquareDark.png" alt="">
+			</div>
+			<div style="display: none;" class="toolbar-item drawing-menu-element">
+				<img src="Img/CircleDark.png" alt="">
+			</div>
+
+			<div id="range-option" style="display: none;" id="drawing-range-option" class="toolbar-item drawing-menu-element">
+				<input id="drawingSizeRange" type="range" name="" oninput="getDrawingSize()" value="5" min="5" max="50" step="5"
+					orient="vertical">
 			</div>
 		</div>
 
@@ -52,20 +76,20 @@
 					<img src="Img/EyeDark.png" alt="">
 				</div>
 			</div> -->
-			<div class="layer-menu-item">
-				<div class="layer-menu-item-text">
+			<div id="dots-layer-selection" class="layer-menu-item">
+				<div id="dots-layer-selection-text" class="layer-menu-item-text" onclick="selectDotsLayer()">
 					Dots
 				</div>
 				<div class="layer-menu-item-visibility">
-					<img src="Img/EyeDark.png" alt="">
+					<img id="dots-layer-selection-image" src="Img/EyeDark.png" alt="">
 				</div>
 			</div>
-			<div class="layer-menu-item">
-				<div class="layer-menu-item-text">
-					Drawings
+			<div id="drawing-layer-selection" class="layer-menu-item">
+				<div id="drawing-layer-selection-text" class="layer-menu-item-text" onclick="selectDrawingLayer()">
+					Drawing
 				</div>
 				<div class="layer-menu-item-visibility">
-					<img src="Img/EyeDark.png" alt="">
+					<img id="drawing-layer-selection-image" src="Img/EyeDark.png" alt="">
 				</div>
 			</div>
 		</div>
