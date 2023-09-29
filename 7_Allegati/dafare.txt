@@ -1,4 +1,4 @@
-- sistemare numeri quando i puntini vengono eliminati
+
 - cambiare grafica slider
 - quando schiaccio un puntino il valore dello slider cambia con il valore del puntino.
 - finire i layer

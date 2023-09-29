@@ -222,7 +222,7 @@ function selectDot(event) {
     let selected = false;
 
     for (let dot of dots) {
-        if (Math.abs(dot.x - x) < 10 && Math.abs(dot.y - y) < 10) { // TODO: includere il size
+        if (Math.abs(dot.x - x) < dot.size && Math.abs(dot.y - y) < dot.size) { // TODO: includere il size
             console.log(dot.label + " schiacciato");
             dot.color = "#266DD3";
 
