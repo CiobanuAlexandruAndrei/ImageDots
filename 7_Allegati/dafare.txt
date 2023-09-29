@@ -1,8 +1,6 @@
-
-- cambiare la grandezza di un puntino anche dopo averlo messo
 - sistemare numeri quando i puntini vengono eliminati
+- cambiare grafica slider
+- quando schiaccio un puntino il valore dello slider cambia con il valore del puntino.
 - finire i layer
-
 - quando i puntini sono tutti collegati se schiaccio una linea invece del puntino e sposto, sposto tutti i puntini insieme.
-
 - iniziare le funzioni di disegno

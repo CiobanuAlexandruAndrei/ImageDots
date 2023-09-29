@@ -74,7 +74,7 @@ class Line{
 }
 
 function getDotSize(){
-    let lastDotSize; 
+    let lastDotSize = dotSize; 
     let range = document.getElementById("dotSizeRange");
     dotSize = range.value;
 
@@ -158,6 +158,7 @@ function addDot(event) {
     dot.y = y;
     dot.size = dotSize;
 
+    /*
     let foundNum = -1;
     for (let i = 0; i < dotsNums.length; i++) {
         if (dotsNums[i] == false) {
@@ -171,18 +172,15 @@ function addDot(event) {
     if (foundNum == -1) {
         dot.label = dotsNums.length + 1;
         dotsNums.push(true);
-    }
+    }*/
 
-    console.log(dotsNums);
-
-    //dot.draw(dotsContext);
+    //console.log(dotsNums);
+    
+    dot.label = dots.length > 0 ? parseInt(dots[dots.length - 1].label) + 1 : 1;
+ 
     dots.push(dot);
-
     refreshCanvas();
-
-    dotsNum++;
-
-    oneDot = dot;
+    //dotsNum++;
 }
 
 const stopMovingDot = () => { isMouseDown = false; }
@@ -224,7 +222,7 @@ function selectDot(event) {
     let selected = false;
 
     for (let dot of dots) {
-        if (Math.abs(dot.x - x) < 10 && Math.abs(dot.y - y) < 10) {
+        if (Math.abs(dot.x - x) < 10 && Math.abs(dot.y - y) < 10) { // TODO: includere il size
             console.log(dot.label + " schiacciato");
             dot.color = "#266DD3";
 
@@ -292,13 +290,33 @@ function selectAddMode() {
 
 function selectDeleteMode() {
     let deleteOption = document.getElementById("delete-option");
+
     for (let i = 0; i < dots.length; i++) {
-        let indx = parseInt(selectedDot.label) - 1;
-        dotsNums[indx] = false;
+        let dotNumber = parseInt(selectedDot.label) - 1;
+        
+        //dotsNums[indx] = false;
+
         if (selectedDot == dots[i]) {
             dots.splice(i, 1);
         }
     }
+
+    let numberGapFound = false;
+    let lastDotNumber = dots.length > 0 ? parseInt(dots[0].label) : 0;
+    for (let i = 1; i < dots.length; i++) {
+        let thisDotNumber = parseInt(dots[i].label)
+        if (numberGapFound) {
+            dots[i].label = thisDotNumber - 1;
+        } else {
+            if ((thisDotNumber - lastDotNumber) == 2) {
+                numberGapFound = true;
+                dots[i].label = thisDotNumber - 1;
+            }
+            console.log(thisDotNumber - lastDotNumber)
+            lastDotNumber = thisDotNumber;
+        }
+    }
+
     deleteOption.style.display = "none";
     clearSelectedDot();
     console.log(dotsNums);
