@@ -1,4 +1,5 @@
 - cancellazione delle linee
+- sistemare lo scale per tutto
 - disegno rettangoli e cerchi
 - primo puntino, numeri
 - visibility dei layer

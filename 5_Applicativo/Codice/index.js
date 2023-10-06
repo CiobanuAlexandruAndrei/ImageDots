@@ -275,31 +275,19 @@ const eraseDrawing = event => {
     if (isMouseDown) {
         const newX = event.offsetX;
         const newY = event.offsetY;
-
+        
         for(let i = 0; i < lines.length; i++){
-            
-            let deltaY = lines[i].fromY - lines[i].toY;
-            let deltaX = lines[i].fromX - lines[i].toX;
-            let q = lines[i].toY / ((deltaY / deltaX) * lines[i].toX)
-
-            //console.log(((deltaY / deltaX) * newX) + " " + newY);
-            if ((Math.abs(((deltaY / deltaX) * newX) - newY) < drawingSize) && 
-                (newX >= lines[i].fromX && newY >= lines[i].fromY) &&
-                (newX <= lines[i].toX && newY <= lines[i].toY)){
-                    
+            if (Math.abs(lines[i].fromX - newX) < drawingSize+1 && 
+                Math.abs(lines[i].fromY - newY) < drawingSize+1){
                 lines.splice(i, 1);
-                console.log("YUüü");
-                console.log(lines);
             }
-
-            
         }
 
         //[x, y] = [newX, newY];
         x = newX;
         y = newY;
-        refreshDrawingCanvas();
     }
+    refreshDrawingCanvas();
 }
 
 function selectDot(event) {
