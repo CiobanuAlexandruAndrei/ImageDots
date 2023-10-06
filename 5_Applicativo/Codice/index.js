@@ -80,7 +80,7 @@ class Line{
         this.size = 3;
         this.color = '#000';
     }
-
+    
     draw(context){
         context.lineCap = 'round';
         context.beginPath();

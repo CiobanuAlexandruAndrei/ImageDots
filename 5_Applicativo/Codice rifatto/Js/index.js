@@ -4,7 +4,6 @@ let dotsNum = 1;
 let dotSize = 5;
 let dots = [];
 
-let movedImage = null;
 let isMouseDown = false;
 let isSelectionMode = false;
 let selectedDot = null;

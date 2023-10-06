@@ -1,5 +1,4 @@
 - sistemare lo scale per tutto
-- disegno rettangoli e cerchi
 - primo puntino, numeri
 - visibility dei layer
 - quando i puntini sono tutti collegati se schiaccio una linea invece del puntino e sposto, sposto tutti i puntini insieme.
@@ -7,4 +6,4 @@
 - posso ingrandire tutti i puntini in una volta selezionando un'opzione
 - sistemare il codice che fa proprio schif
 - preview, stampa
-- fare tutto a classi
+- seleziona tutti i puntini e ingrandiscili tutti / spostali tutti
