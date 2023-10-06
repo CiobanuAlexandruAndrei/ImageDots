@@ -23,11 +23,12 @@ let drawingLayerVisibility = false;
 
 let drawingSize = 5;
 let drawingColor = "#000";
-let lines = []
-
+let lines = [];
+let rects = [];
 
 
 class Dot {
+    
     constructor() {
         this.x = 0;
         this.y = 0;
@@ -87,6 +88,34 @@ class Line{
     }
 }
 
+class Rect{
+    constructor(x, y, width, height){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+
+        this.size = 3;
+
+        this.color = '#000';
+        this.filled = false;
+    }
+
+    draw(context){
+        context.beginPath();
+        if(!this.filled){
+            context.lineWidth = this.size;
+            context.strokeStyle = this.color;
+            context.rect(this.x, this.y, this.width, this.height);
+        }else{
+            context.fillStyle = this.color;
+            context.fillRect(this.x, this.y, this.width, this.height);
+        }
+        
+        context.stroke();
+    }
+}
+
 function getDotSize(){
     let range = document.getElementById("dotSizeRange");
     dotSize = range.value;
@@ -141,6 +170,10 @@ function clearDrawingCanvas(){
 function drawDrawingCanvas(){
     for (let line of lines) {
         line.draw(drawingContext);
+    }
+
+    for(let rect of rects){
+        rect.draw(drawingContext);
     }
 }
 
@@ -242,6 +275,45 @@ const moveDot = event => {
         console.log(x, y);
     }
 }
+
+const stopDrawingRect = () => { 
+    isMouseDown = false; 
+    rects.push(lastRect);
+    refreshDrawingCanvas();
+}
+const startDrawingRect = event => {
+    isMouseDown = true;
+    first = true;
+    let lastRect = null;
+    [startX, startY] = [event.offsetX, event.offsetY]
+    [x, y] = [event.offsetX, event.offsetY];
+}
+
+const drawRect = event => {
+    if (isMouseDown) {
+        refreshDrawingCanvas();
+        const newX = event.offsetX;
+        const newY = event.offsetY;
+
+        if(!first){  // se no quando inizi a disegnare vedi una cosa strana
+            rect = new Rect(startX, startY, x - startX, y - startY);
+            rect.size = drawingSize;
+            rect.color = drawingColor;
+            rect.draw(drawingContext);
+
+            lastRect = rect;
+        }
+        //lines.push(line);
+
+        //[x, y] = [newX, newY];
+        x = newX;
+        y = newY;
+        
+    }
+    first = false;
+}
+
+
 
 const stopDrawingLine = () => { isMouseDown = false; }
 const startDrawingLine = event => {
@@ -444,6 +516,9 @@ function closeImage() {
 function selectDotsLayer(){
     dotsLayerSelected = true; 
     drawingLayerSelected = false;
+    refreshDotCanvas();
+    
+    clearSelectedDot();
 
     drawingCanvas.style.display = "none";
     dotsCanvas.style.display = "block";
@@ -474,6 +549,8 @@ function selectDotsLayer(){
 function selectDrawingLayer() {
     dotsLayerSelected = false;
     drawingLayerSelected = true;
+    
+    refreshDrawingCanvas();
 
     dotsCanvas.style.display = "none";
     drawingCanvas.style.display = "block";
@@ -488,9 +565,10 @@ function selectDrawingLayer() {
 
     let dotMenuItems = document.getElementsByClassName("dot-menu-element");
     for (item of dotMenuItems) {
-        if (item.id != "delete-option"){
-            item.style.display = "none";
-        }
+        // if (item.id != "delete-option"){
+        //     item.style.display = "none";
+        // }
+        item.style.display = "none";
         
     }
 
@@ -502,7 +580,7 @@ function selectDrawingLayer() {
     connectDotsElement.style.display = "none";
 }
 
-function selectDrawingFreeMode(){
+function removeAllDrawingEvents(){
     drawingCanvas.removeEventListener('mousedown', startDrawingLine);
     drawingCanvas.removeEventListener('mousemove', drawLine);
     drawingCanvas.removeEventListener('mouseup', stopDrawingLine);
@@ -513,56 +591,73 @@ function selectDrawingFreeMode(){
     drawingCanvas.removeEventListener('mouseup', stopErasingDrawing);
     drawingCanvas.removeEventListener('mouseout', stopErasingDrawing);
 
-    selectDrawingFreeModeElement.style.backgroundColor = "#393E46";
-    selectDrawingFreeModeElement.getElementsByTagName("img")[0].src = "Img/CursorLight.png";
+    drawingCanvas.removeEventListener('mousedown', startDrawingRect);
+    drawingCanvas.removeEventListener('mousemove', drawRect);
+    drawingCanvas.removeEventListener('mouseup', stopDrawingRect);
+    drawingCanvas.removeEventListener('mouseout', stopDrawingRect);
+}
+
+function resetOptionElements(){
+    selectDrawingFreeModeElement.style.backgroundColor = "#F7F7F7";
+    selectDrawingFreeModeElement.getElementsByTagName("img")[0].src = "Img/CursorDark.png";
+
+    selectEraseDrawingElement.style.backgroundColor = "#F7F7F7";
+    selectEraseDrawingElement.getElementsByTagName("img")[0].src = "Img/EraserDark.png";
 
     selectPenModeElement.style.backgroundColor = "#F7F7F7";
     selectPenModeElement.getElementsByTagName("img")[0].src = "Img/EditDark.png";
 
-    selectEraseDrawingElement.style.backgroundColor = "#F7F7F7";
-    selectEraseDrawingElement.getElementsByTagName("img")[0].src = "Img/EraserDark.png";
+    selectDrawingRectElement.style.backgroundColor = "#F7F7F7";
+    selectDrawingRectElement.getElementsByTagName("img")[0].src = "Img/SquareDark.png";
+}   
+
+function selectDrawingFreeMode(){
+    removeAllDrawingEvents();
+    resetOptionElements();
+
+    selectDrawingFreeModeElement.style.backgroundColor = "#393E46";
+    selectDrawingFreeModeElement.getElementsByTagName("img")[0].src = "Img/CursorLight.png";
+
 }
 
 function selectPenMode(){
-    drawingCanvas.removeEventListener('mousedown', startErasingDrawing);
-    drawingCanvas.removeEventListener('mousemove', eraseDrawing);
-    drawingCanvas.removeEventListener('mouseup', stopErasingDrawing);
-    drawingCanvas.removeEventListener('mouseout', stopErasingDrawing);
+    removeAllDrawingEvents();
+    resetOptionElements();
 
     drawingCanvas.addEventListener('mousedown', startDrawingLine);
     drawingCanvas.addEventListener('mousemove', drawLine);
     drawingCanvas.addEventListener('mouseup', stopDrawingLine);
     drawingCanvas.addEventListener('mouseout', stopDrawingLine);
 
-    selectDrawingFreeModeElement.style.backgroundColor = "#F7F7F7";
-    selectDrawingFreeModeElement.getElementsByTagName("img")[0].src = "Img/CursorDark.png";
-
     selectPenModeElement.style.backgroundColor = "#393E46";
     selectPenModeElement.getElementsByTagName("img")[0].src = "Img/EditLight.png";
 
-    selectEraseDrawingElement.style.backgroundColor = "#F7F7F7";
-    selectEraseDrawingElement.getElementsByTagName("img")[0].src = "Img/EraserDark.png";
 }
 
 function selectEraseDrawingMode(){
-    drawingCanvas.removeEventListener('mousedown', startDrawingLine);
-    drawingCanvas.removeEventListener('mousemove', drawLine);
-    drawingCanvas.removeEventListener('mouseup', stopDrawingLine);
-    drawingCanvas.removeEventListener('mouseout', stopDrawingLine);
+    removeAllDrawingEvents();
+    resetOptionElements();
 
     drawingCanvas.addEventListener('mousedown', startErasingDrawing);
     drawingCanvas.addEventListener('mousemove', eraseDrawing);
     drawingCanvas.addEventListener('mouseup', stopErasingDrawing);
     drawingCanvas.addEventListener('mouseout', stopErasingDrawing);
 
-    selectDrawingFreeModeElement.style.backgroundColor = "#F7F7F7";
-    selectDrawingFreeModeElement.getElementsByTagName("img")[0].src = "Img/CursorDark.png";
-
-    selectPenModeElement.style.backgroundColor = "#F7F7F7";
-    selectPenModeElement.getElementsByTagName("img")[0].src = "Img/EditDark.png";
-
     selectEraseDrawingElement.style.backgroundColor = "#393E46";
     selectEraseDrawingElement.getElementsByTagName("img")[0].src = "Img/EraserLight.png";
+}
+
+function selectDrawingRectMode(){
+    removeAllDrawingEvents();
+    resetOptionElements();
+
+    drawingCanvas.addEventListener('mousedown', startDrawingRect);
+    drawingCanvas.addEventListener('mousemove', drawRect);
+    drawingCanvas.addEventListener('mouseup', stopDrawingRect);
+    drawingCanvas.addEventListener('mouseout', stopDrawingRect);
+
+    selectDrawingRectElement.style.backgroundColor = "#393E46";
+    selectDrawingRectElement.getElementsByTagName("img")[0].src = "Img/SquareLight.png";
 }
 
 
@@ -581,6 +676,7 @@ let connectDotsElement = document.getElementById("connect-dots-menu");
 let selectDrawingFreeModeElement = document.getElementById("select-free-drawing-mode-option");
 let selectPenModeElement = document.getElementById("select-pen-mode-option");
 let selectEraseDrawingElement = document.getElementById("select-erase-drawing-mode-option");
+let selectDrawingRectElement = document.getElementById("select-drawing-rect-mode-option");
 
 const context = canvas.getContext('2d');
 const dotsContext = dotsCanvas.getContext('2d');
