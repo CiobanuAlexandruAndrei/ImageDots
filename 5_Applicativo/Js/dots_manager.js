@@ -49,31 +49,36 @@ function selectAddMode() {
 }
 
 function selectDeleteMode() {
-    for (let i = 0; i < dots.length; i++) {
-        let dotNumber = parseInt(selectedDot.label) - 1;
-        if (selectedDot == dots[i]) {
-            dots.splice(i, 1);
-        }
-    }
-
-    let numberGapFound = false;
-    let lastDotNumber = 0; 
-    for (let i = 0; i < dots.length; i++) {
-        let thisDotNumber = parseInt(dots[i].label)
-        if (numberGapFound) {
-            dots[i].label = thisDotNumber - 1;
-        } else {
-            if ((thisDotNumber - lastDotNumber) == 2) {
-                numberGapFound = true;
-                dots[i].label = thisDotNumber - 1;
+    if(areAllDotsSelected){
+        dots.splice(0, dots.length);
+    } else{
+        for (let i = 0; i < dots.length; i++) {
+            let dotNumber = parseInt(selectedDot.label) - 1;
+            if (selectedDot == dots[i]) {
+                dots.splice(i, 1);
             }
-            console.log(thisDotNumber - lastDotNumber)
-            lastDotNumber = thisDotNumber;
+        }
+
+        let numberGapFound = false;
+        let lastDotNumber = 0; 
+        for (let i = 0; i < dots.length; i++) {
+            let thisDotNumber = parseInt(dots[i].label)
+            if (numberGapFound) {
+                dots[i].label = thisDotNumber - 1;
+            } else {
+                if ((thisDotNumber - lastDotNumber) == 2) {
+                    numberGapFound = true;
+                    dots[i].label = thisDotNumber - 1;
+                }
+                console.log(thisDotNumber - lastDotNumber)
+                lastDotNumber = thisDotNumber;
+            }
         }
     }
-
+        
     selectDeleteOptionElement.style.display = "none";
     clearSelectedDot();
+    refreshDotCanvas();
 }
 
 function selectAllDots() {
@@ -86,15 +91,16 @@ function selectAllDots() {
         for(let i = 0; i < dots.length; i++){
             dots[i].color = "#000";
         }
+        selectDeleteOptionElement.style.display = "none";
     } else {
         areAllDotsSelected = true;
-        console.log("Yaooooo");
         selectAllDotsOptionElement.style.backgroundColor = "#393E46";
         selectAllDotsOptionElement.getElementsByTagName("img")[0].src = "Img/SelectLight.png";
 
         for(let i = 0; i < dots.length; i++){
             dots[i].color = "#266DD3";
         }
+        selectDeleteOptionElement.style.display = "block";
     }
     refreshDotCanvas();
 }

@@ -176,6 +176,9 @@ function selectDot(event) {
 
     if (!selected) {
         clearSelectedDot();
+        if(areAllDotsSelected){
+            selectAllDots();
+        }
         selectDeleteOptionElement.style.display = "none";
     } else {
         selectDeleteOptionElement.style.display = "block";
