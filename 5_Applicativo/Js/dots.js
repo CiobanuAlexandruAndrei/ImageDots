@@ -113,6 +113,7 @@ const startMovingDot = event => {
     [x, y] = [event.offsetX, event.offsetY];
 }
 const moveDot = event => {
+    
     if (isMouseDown && isSelectionMode && areAllDotsSelected) {
         const newX = event.offsetX;
         const newY = event.offsetY;
