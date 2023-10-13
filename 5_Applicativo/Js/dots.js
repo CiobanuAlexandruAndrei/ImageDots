@@ -78,7 +78,7 @@ function drawDotsConnections() {
 }
 
 function clearSelectedDot() {
-    if (selectedDot != null) {
+    if (selectedDot != null && !areAllDotsSelected) {
         selectedDot.color = "#000";
         refreshDotCanvas();
         selectedDot = null;
@@ -86,21 +86,24 @@ function clearSelectedDot() {
 }
 
 function addDot(event) {
-    let rect = dotsCanvas.getBoundingClientRect();
-    let scaleX = dotsCanvas.width / rect.width;
-    let scaleY = dotsCanvas.height / rect.height;
+    if(!areAllDotsSelected){
+        let rect = dotsCanvas.getBoundingClientRect();
+        let scaleX = dotsCanvas.width / rect.width;
+        let scaleY = dotsCanvas.height / rect.height;
 
-    let x = Math.round((event.x - rect.left) * scaleX);
-    let y = Math.round((event.y - rect.top) * scaleY);
+        let x = Math.round((event.x - rect.left) * scaleX);
+        let y = Math.round((event.y - rect.top) * scaleY);
 
-    let dot = new Dot();
-    dot.x = x;
-    dot.y = y;
-    dot.size = dotSize;
-    dot.label = dots.length > 0 ? parseInt(dots[dots.length - 1].label) + 1 : 1;
+        let dot = new Dot();
+        dot.x = x;
+        dot.y = y;
+        dot.size = dotSize;
+        dot.label = dots.length > 0 ? parseInt(dots[dots.length - 1].label) + 1 : 1;
 
-    dots.push(dot);
-    refreshDotCanvas();
+        dots.push(dot);
+        refreshDotCanvas();
+    }
+    
 }
 
 const stopMovingDot = () => { isMouseDown = false; }
@@ -109,7 +112,21 @@ const startMovingDot = event => {
     [x, y] = [event.offsetX, event.offsetY];
 }
 const moveDot = event => {
-    if (isMouseDown && isSelectionMode && selectedDot != null) {
+    if (isMouseDown && isSelectionMode && areAllDotsSelected) {
+        const newX = event.offsetX;
+        const newY = event.offsetY;
+        
+        clearDotCanvas();
+        for(let i = 0; i < dots.length; i++){
+            dots[i].x = dots[i].x + (newX - x);
+            dots[i].y = dots[i].y + (newY - y);
+        }
+        drawDotCanvas();
+
+        x = newX;
+        y = newY;
+        console.log(x, y);
+    } else if (isMouseDown && isSelectionMode && selectedDot != null) {
         const newX = event.offsetX;
         const newY = event.offsetY;
         x = newX;
@@ -121,7 +138,7 @@ const moveDot = event => {
         drawDotCanvas();
 
         console.log(x, y);
-    }
+    } 
 }
 
 function selectDot(event) {

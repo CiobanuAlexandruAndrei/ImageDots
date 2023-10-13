@@ -14,8 +14,8 @@ function resetDotsOptionsElements(){
     selectAddModeOptionElement.style.background = "#F7F7F7";
     selectAddModeOptionElement.getElementsByTagName('img')[0].src = "Img/DotDark.png";
 
-    selectAllDotsOptionElement.style.background = "#F7F7F7";
-    selectAllDotsOptionElement.getElementsByTagName('img')[0].src = "Img/SelectDark.png";
+    //selectAllDotsOptionElement.style.background = "#F7F7F7";
+    //selectAllDotsOptionElement.getElementsByTagName('img')[0].src = "Img/SelectDark.png";
 }
 
 function selectFreeMode() {
@@ -35,6 +35,10 @@ function selectAddMode() {
 
     removeAllDotsEvents();
     resetDotsOptionsElements();
+    
+    if(areAllDotsSelected){
+        selectAllDots();
+    }
 
     dotsCanvas.addEventListener('mousedown', addDot);
 
@@ -78,12 +82,21 @@ function selectAllDots() {
 
         selectAllDotsOptionElement.style.backgroundColor = "#F7F7F7";
         selectAllDotsOptionElement.getElementsByTagName("img")[0].src = "Img/SelectDark.png";
+
+        for(let i = 0; i < dots.length; i++){
+            dots[i].color = "#000";
+        }
     } else {
         areAllDotsSelected = true;
         console.log("Yaooooo");
         selectAllDotsOptionElement.style.backgroundColor = "#393E46";
         selectAllDotsOptionElement.getElementsByTagName("img")[0].src = "Img/SelectLight.png";
+
+        for(let i = 0; i < dots.length; i++){
+            dots[i].color = "#266DD3";
+        }
     }
+    refreshDotCanvas();
 }
 
 function selectChangeDotsNums(){
@@ -115,7 +128,12 @@ function connectDots() {
 function getDotSize() {
     dotSize = getDotSizeElement.value;
 
-    if (lastDotSize != dotSize && selectedDot.size != dotSize) {
+    if (areAllDotsSelected){
+        for(let i = 0; i < dots.length; i++){
+            dots[i].size = dotSize;
+        }
+        refreshDotCanvas();
+    }else if (lastDotSize != dotSize && selectedDot.size != dotSize) {
         selectedDot.size = dotSize;
         refreshDotCanvas();
     }
