@@ -1,4 +1,3 @@
-import { selectDot, addDot, clearSelectedDot, dots, dotSize, lastDotSize, startMovingDot, moveDot, stopMovingDot} from './dots.js';
 
 let isSelectionMode = false;
 let areDotsConnected = false;
@@ -15,8 +14,8 @@ function resetDotsOptionsElements(){
     selectAddModeOptionElement.style.background = "#F7F7F7";
     selectAddModeOptionElement.getElementsByTagName('img')[0].src = "Img/DotDark.png";
 
-    selectModeOptionElement.style.background = "#F7F7F7";
-    selectModeOptionElement.getElementsByTagName('img')[0].src = "Img/SelectDark.png";
+    //selectModeOptionElement.style.background = "#F7F7F7";
+    //selectModeOptionElement.getElementsByTagName('img')[0].src = "Img/SelectDark.png";
 }
 
 function selectFreeMode() {
@@ -103,8 +102,8 @@ function connectDots() {
     }
 }
 
-export function getDotSize() {
-    dotSize = range.value;
+function getDotSize() {
+    dotSize = getDotSizeElement.value;
 
     if (lastDotSize != dotSize && selectedDot.size != dotSize) {
         selectedDot.size = dotSize;
@@ -120,7 +119,7 @@ const connectDotsElement = document.getElementById("connect-dots-menu");
 const selectFreeModeOptionElement = document.getElementById("free-mode-option");
 const selectAddModeOptionElement = document.getElementById("add-mode-option");
 const selectModeOptionElement = document.getElementById("select-mode-option");
-export const selectDeleteOptionElement = document.getElementById("delete-option");
+const selectDeleteOptionElement = document.getElementById("delete-option");
 
 const selectConnectDotsElement = document.getElementById("connect-dots-menu");
 const connectDotsTextElement = document.getElementById("connect-dots-menu-text");

@@ -1,16 +1,3 @@
-import {
-    startDrawingEllipse, 
-    stopDrawingEllipse, 
-    startDrawingLine, 
-    stopDrawingLine, 
-    startDrawingRect, 
-    stopDrawingRect,
-    startErasingDrawing,
-    stopErasingDrawing,
-    areShapesFilled,
-    drawingSize,
-    drawingColor
-} from './drawing.js';
 
 function removeAllDrawingEvents() {
     drawingCanvas.removeEventListener('mousedown', startDrawingLine);
@@ -135,8 +122,8 @@ function getDrawingColor(){
     drawingColor = input.value;
 }
 
-export const drawingCanvas = document.getElementById("drawing-canvas");
-export const drawingContext = drawingCanvas.getContext('2d');
+const drawingCanvas = document.getElementById("drawing-canvas");
+const drawingContext = drawingCanvas.getContext('2d');
 
 let selectDrawingFreeModeElement = document.getElementById("select-free-drawing-mode-option");
 let selectPenModeElement = document.getElementById("select-pen-mode-option");

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title> ImageDots </title>
+
+	<meta charset="UTF-8">
+	<meta name="author" content="Alexandru Ciobanu">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="Style/style.css">
+</head>
+
+<body>
+	<div id="app">
+		<div id="navbar">
+			<!-- <div class="navbar-item">File</div> -->
+			<div class="navbar-item">
+				<input type="file" style="width:0px;visibility: hidden;" name="file-selector" id="file-selector" accept=".jpg, .jpeg, .png">
+				<label id="label-for-file-selector" for="file-selector">Open</label>
+			</div>
+			<div class="navbar-item"><a onclick="closeImage()">Close</a></div>
+			<div class="navbar-item"><a onclick="saveCanvas()">Save</a></div>
+		</div>
+
+		<div id="toolbar">
+			<!-- Dots layer -->
+			<div id="free-mode-option" onclick="selectFreeMode()" style="background-color: #393E46; border-top: none;" class="toolbar-item dot-menu-element">
+				<img src="Img/CursorLight.png" alt="">
+			</div>
+			<div id="add-mode-option" onclick="selectAddMode()" class="toolbar-item dot-menu-element">
+				<img src="Img/DotDark.png" alt="">
+			</div>
+			<div id="select-all-dots-mode-option" id="select-mode-option" onclick="" class="toolbar-item dot-menu-element" onclick="selectAllDots()">
+				<img src="Img/SelectDark.png" alt="">
+			</div>
+			<div id="delete-option" style="display: none;" onclick="selectDeleteMode()" class="toolbar-item dot-menu-element">
+				<img src="Img/Delete.png" alt="">
+			</div>
+			<div id="range-option" class="toolbar-item dot-menu-element">
+				<input id="dotSizeRange" type="range" name="" oninput="getDotSize()" value="5" min="5" max="50" step="5" orient="vertical" >
+			</div>
+			
+			<!-- <div id="add-mode-option" onclick="test()" class="toolbar-item">
+				<img src="Img/DotDark.png" alt="">
+			</div> -->
+
+			<!-- Drawing layer -->
+			<div id="select-free-drawing-mode-option" style="display: none; border-top: none; background-color: #393E46;" onclick="selectDrawingFreeMode()" class="toolbar-item drawing-menu-element">
+				<img src="Img/CursorLight.png" alt="">
+			</div>
+			<div id="select-pen-mode-option" style="display: none;" onclick="selectPenMode()" class="toolbar-item drawing-menu-element">
+				<img src="Img/EditDark.png" alt="">
+			</div>
+			<div id="select-drawing-rect-mode-option" style="display: none;" class="toolbar-item drawing-menu-element" onclick="selectDrawingRectMode()">
+				<img src="Img/SquareDark.png" alt="">
+			</div>
+			<div id="select-drawing-elypse-mode-option" style="display: none;" class="toolbar-item drawing-menu-element" onclick="selectDrawingElypseMode()">
+				<img src="Img/CircleDark.png" alt="">
+			</div>
+			<div id="select-erase-drawing-mode-option" style="display: none;" onclick="selectEraseDrawingMode()" class="toolbar-item drawing-menu-element">
+				<img src="Img/EraserDark.png" alt="">
+			</div>
+			<div id="select-drawing-shape-filled-mode-option" style="display: none;" onclick="selectFill()" class="toolbar-item drawing-menu-element">
+				<img src="Img/FillDark.png" alt="">
+			</div>
+
+			<div id="range-option" style="display: none;" id="drawing-range-option" class="toolbar-item drawing-menu-element">
+				<input id="drawingSizeRange" type="range" name="" oninput="getDrawingSize()" value="1" min="1" max="50" step="5"
+					orient="vertical">
+			</div>
+
+			<div style="display: none;" class="toolbar-item drawing-menu-element">
+				<input type="color" name="" oninput="getDrawingColor()" id="drawing-color-input">
+			</div>
+		</div>
+
+		<div id="layer-menu">
+			<!-- <div class="layer-menu-item">
+				<div class="layer-menu-item-text">
+					Image
+				</div>
+				<div class="layer-menu-item-visibility">
+					<img src="Img/EyeDark.png" alt="">
+				</div>
+			</div> -->
+			<div id="dots-layer-selection" class="layer-menu-item">
+				<div id="dots-layer-selection-text" class="layer-menu-item-text" onclick="selectDotsLayer()">
+					Dots
+				</div>
+				<div class="layer-menu-item-visibility">
+					<img id="dots-layer-selection-image" src="Img/EyeDark.png" alt="">
+				</div>
+			</div>
+			<div id="drawing-layer-selection" class="layer-menu-item">
+				<div id="drawing-layer-selection-text" class="layer-menu-item-text" onclick="selectDrawingLayer()">
+					Drawing
+				</div>
+				<div class="layer-menu-item-visibility">
+					<img id="drawing-layer-selection-image" src="Img/EyeDark.png" alt="">
+				</div>
+			</div>
+		</div>
+
+		<!-- TODO: Aggiungere un remove all dots -->
+
+		<div onclick="connectDots()" id="connect-dots-menu">
+			<div id="connect-dots-menu-image">
+				<img src="Img/Ellipsis.png" alt="">
+			</div>
+			<div id="connect-dots-menu-text">Connect dots</div>
+		</div>
+
+		<div id="workspace">
+			<canvas id="workspace-canvas"></canvas>
+			<canvas id="dots-canvas"></canvas>
+			<canvas id="drawing-canvas"></canvas>
+			<!-- <canvas id="mix-canvas"></canvas> -->
+		</div>
+	</div>
+
+	<!-- <script src="index.js"></script> -->
+	
+	
+	<script src="Js/dots.js"></script>
+	<script src="Js/drawing.js"></script>
+	<script src="Js/dots_manager.js"></script>
+	<script src="Js/drawing_manager.js"></script>
+	<script src="Js/layers.js"></script>
+	<script src="Js/main.js"></script>
+	
+</body>
+
+</html>

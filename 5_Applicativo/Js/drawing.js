@@ -1,15 +1,15 @@
-import { drawingContext } from "./drawing_manager.js";
 
-export let drawingSize = 5;
-export let drawingColor = "#000";
-export let areShapesFilled = false;
+
+let drawingSize = 5;
+let drawingColor = "#000";
+let areShapesFilled = false;
 
 let lines = [];
 let rects = [];
 let ellipses = [];
 
 
-export class Line {
+class Line {
     constructor(fromX, fromY, toX, toY) {
         this.fromX = fromX;
         this.fromY = fromY;
@@ -109,18 +109,18 @@ function drawDrawingCanvas() {
     }
 }
 
-export function refreshDrawingCanvas() {
+function refreshDrawingCanvas() {
     clearDrawingCanvas();
     drawDrawingCanvas();
 }
 
 
-export const stopDrawingEllipse = () => {
+const stopDrawingEllipse = () => {
     isMouseDown = false;
     ellipses.push(lastEllipse);
     refreshDrawingCanvas();
 }
-export const startDrawingEllipse = event => {
+const startDrawingEllipse = event => {
     isMouseDown = true;
     first = true;
     let lastEllipse = null;
@@ -128,7 +128,7 @@ export const startDrawingEllipse = event => {
     [x, y] = [event.offsetX, event.offsetY];
 }
 
-export const drawEllipse = event => {
+const drawEllipse = event => {
     if (isMouseDown) {
         refreshDrawingCanvas();
         const newX = event.offsetX;
@@ -156,12 +156,12 @@ export const drawEllipse = event => {
     first = false;
 }
 
-export const stopDrawingRect = () => {
+const stopDrawingRect = () => {
     isMouseDown = false;
     rects.push(lastRect);
     refreshDrawingCanvas();
 }
-export const startDrawingRect = event => {
+const startDrawingRect = event => {
     isMouseDown = true;
     first = true;
     let lastRect = null;
@@ -169,7 +169,7 @@ export const startDrawingRect = event => {
     [x, y] = [event.offsetX, event.offsetY];
 }
 
-export const drawRect = event => {
+const drawRect = event => {
     if (isMouseDown) {
         refreshDrawingCanvas();
         const newX = event.offsetX;
@@ -195,12 +195,12 @@ export const drawRect = event => {
     first = false;
 }
 
-export const stopDrawingLine = () => { isMouseDown = false; }
-export const startDrawingLine = event => {
+const stopDrawingLine = () => { isMouseDown = false; }
+const startDrawingLine = event => {
     isMouseDown = true;
     [x, y] = [event.offsetX, event.offsetY];
 }
-export const drawLine = event => {
+const drawLine = event => {
     if (isMouseDown) {
         const newX = event.offsetX;
         const newY = event.offsetY;
@@ -218,12 +218,12 @@ export const drawLine = event => {
     }
 }
 
-export const stopErasingDrawing = () => { isMouseDown = false; }
-export const startErasingDrawing = event => {
+const stopErasingDrawing = () => { isMouseDown = false; }
+const startErasingDrawing = event => {
     isMouseDown = true;
     [x, y] = [event.offsetX, event.offsetY];
 }
-export const eraseDrawing = event => {
+const eraseDrawing = event => {
     if (isMouseDown) {
         const newX = event.offsetX;
         const newY = event.offsetY;

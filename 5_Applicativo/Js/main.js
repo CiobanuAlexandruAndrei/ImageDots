@@ -1,4 +1,3 @@
-import { selectDotsLayer } from './layers.js';
 
 function getImgData() {
     const files = chooseFile.files[0];
@@ -51,3 +50,5 @@ const context = canvas.getContext('2d');
 
 
 selectDotsLayer();
+
+

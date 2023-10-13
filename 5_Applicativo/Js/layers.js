@@ -1,13 +1,12 @@
-import { refreshDotCanvas, clearSelectedDot } from './dots.js';
-import { refreshDrawingCanvas } from './drawing.js';
-import { dotsCanvas } from './dots_manager.js';
-import { drawingCanvas } from './drawing_manager.js';
+
 
 let dotsLayerSelected = false;  // solo uno alla volta può essere utilizzato
 let drawingLayerSelected = false;
 
 let dotsLayerVisibility = false;  // se tutti e due sono on si usa il context del terzo canvas
 let drawingLayerVisibility = false;
+
+let isMouseDown = false;
 
 function selectDotsLayer(){
     dotsLayerSelected = true; 

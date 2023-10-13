@@ -1,5 +1,3 @@
-import { Line } from './drawing.js';
-import { selectDeleteOptionElement, getDotSizeElement } from '../dots_manager.js';
 
 let dotsNum = 1;  
 let dotSize = 5;
@@ -8,6 +6,8 @@ let lastDotSize = -1;
 
 let selectedDot = null;
 let areAllDotsSelected = false;
+
+
 
 class Dot {
     constructor() {
@@ -48,6 +48,11 @@ class Dot {
     }
 }
 
+function clearDotCanvas() {
+    dotsContext.clearRect(0, 0, dotsCanvas.width, dotsCanvas.height);
+}
+
+
 function drawDotCanvas() {
     for (let dot of dots) {
         dot.draw(dotsContext);
@@ -58,7 +63,7 @@ function drawDotCanvas() {
     }
 }
 
-export function refreshDotCanvas() {
+function refreshDotCanvas() {
     clearDotCanvas();
     drawDotCanvas();
 }
@@ -72,7 +77,7 @@ function drawDotsConnections() {
     }
 }
 
-export function clearSelectedDot() {
+function clearSelectedDot() {
     if (selectedDot != null) {
         selectedDot.color = "#000";
         refreshDotCanvas();
