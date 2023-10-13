@@ -14,8 +14,8 @@ function resetDotsOptionsElements(){
     selectAddModeOptionElement.style.background = "#F7F7F7";
     selectAddModeOptionElement.getElementsByTagName('img')[0].src = "Img/DotDark.png";
 
-    //selectModeOptionElement.style.background = "#F7F7F7";
-    //selectModeOptionElement.getElementsByTagName('img')[0].src = "Img/SelectDark.png";
+    selectAllDotsOptionElement.style.background = "#F7F7F7";
+    selectAllDotsOptionElement.getElementsByTagName('img')[0].src = "Img/SelectDark.png";
 }
 
 function selectFreeMode() {
@@ -45,7 +45,6 @@ function selectAddMode() {
 }
 
 function selectDeleteMode() {
-    
     for (let i = 0; i < dots.length; i++) {
         let dotNumber = parseInt(selectedDot.label) - 1;
         if (selectedDot == dots[i]) {
@@ -54,8 +53,8 @@ function selectDeleteMode() {
     }
 
     let numberGapFound = false;
-    let lastDotNumber = dots.length > 0 ? parseInt(dots[0].label) : 0;
-    for (let i = 1; i < dots.length; i++) {
+    let lastDotNumber = 0; 
+    for (let i = 0; i < dots.length; i++) {
         let thisDotNumber = parseInt(dots[i].label)
         if (numberGapFound) {
             dots[i].label = thisDotNumber - 1;
@@ -77,15 +76,20 @@ function selectAllDots() {
     if (areAllDotsSelected) {
         areAllDotsSelected = false;
 
-        selectAllDotsElement.style.backgroundColor = "#F7F7F7";
-        selectAllDotsElement.getElementsByTagName("img")[0].src = "Img/SelectDark.png";
+        selectAllDotsOptionElement.style.backgroundColor = "#F7F7F7";
+        selectAllDotsOptionElement.getElementsByTagName("img")[0].src = "Img/SelectDark.png";
     } else {
         areAllDotsSelected = true;
         console.log("Yaooooo");
-        selectAllDotsElement.style.backgroundColor = "#393E46";
-        selectAllDotsElement.getElementsByTagName("img")[0].src = "Img/SelectLight.png";
+        selectAllDotsOptionElement.style.backgroundColor = "#393E46";
+        selectAllDotsOptionElement.getElementsByTagName("img")[0].src = "Img/SelectLight.png";
     }
 }
+
+function selectChangeDotsNums(){
+
+}
+
 
 function connectDots() {
     if (!areDotsConnected) {
@@ -125,6 +129,9 @@ const selectConnectDotsElement = document.getElementById("connect-dots-menu");
 const connectDotsTextElement = document.getElementById("connect-dots-menu-text");
 
 const getDotSizeElement = document.getElementById("dotSizeRange");
+
+const selectAllDotsOptionElement = document.getElementById("select-all-dots-mode-option");
+const selectChangeDotsNumsElement = document.getElementById("change-dots-nums-mode-option");
 
 dotsCanvas.addEventListener('mousedown', startMovingDot);
 dotsCanvas.addEventListener('mousemove', moveDot);
