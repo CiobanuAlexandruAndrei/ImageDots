@@ -115,6 +115,33 @@ function selectChangeDotsNums(){
     refreshDotCanvas();
 }
 
+function selectChangeDotNum(){
+    var num = prompt("Insert the new number of the dot")
+    num = parseInt(num);
+
+    let clone = new Dot();
+    clone.x = selectedDot.x;
+    clone.y = selectedDot.y;
+    clone.size = selectedDot.size;
+    clone.label = num;
+    clone.color = selectedDot.color;
+
+    for (let i = 0; i < dots.length; i++) {
+        let dotNumber = parseInt(selectedDot.label) - 1;
+        if (selectedDot == dots[i]) {
+            dots.splice(i, 1);
+        }
+    }
+
+    let lastDotNumber = 0; 
+    dots.splice(num - 1, 0, clone);
+    
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].label = i + 1;
+    }
+
+    refreshDotCanvas();
+}
 
 function connectDots() {
     if (!areDotsConnected) {
@@ -162,6 +189,7 @@ const getDotSizeElement = document.getElementById("dotSizeRange");
 
 const selectAllDotsOptionElement = document.getElementById("select-all-dots-mode-option");
 const selectChangeDotsNumsElement = document.getElementById("change-dots-nums-mode-option");
+const selectChangeDotNumElement = document.getElementById("change-dot-num-mode-option");
 
 dotsCanvas.addEventListener('mousedown', startMovingDot);
 dotsCanvas.addEventListener('mousemove', moveDot);

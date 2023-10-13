@@ -54,13 +54,14 @@ function clearDotCanvas() {
 
 
 function drawDotCanvas() {
+    if (areDotsConnected) {
+        drawDotsConnections();
+    }
+
     for (let dot of dots) {
         dot.draw(dotsContext);
     }
 
-    if (areDotsConnected) {
-        drawDotsConnections();
-    }
 }
 
 function refreshDotCanvas() {
@@ -180,8 +181,10 @@ function selectDot(event) {
             selectAllDots();
         }
         selectDeleteOptionElement.style.display = "none";
+        selectChangeDotNumElement.style.display = "none";
     } else {
         selectDeleteOptionElement.style.display = "block";
+        selectChangeDotNumElement.style.display = "block";
     }
 
 }

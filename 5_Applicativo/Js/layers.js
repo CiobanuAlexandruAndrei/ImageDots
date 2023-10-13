@@ -27,7 +27,7 @@ function selectDotsLayer(){
     drawingImageElement.src = "Img/EyeDark.png";
 
     for(item of dotMenuItemsElement){
-        if (item.id != "delete-option") {
+        if (item.id != "delete-option" && item.id != "change-dot-num-mode-option") {
             item.style.display = "block";
         }
     }

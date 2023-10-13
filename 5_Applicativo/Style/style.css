@@ -295,3 +295,20 @@ input[type=color]{
   height: 35px;
   padding-bottom: 15px;
 }
+
+#number-menu{
+  position: fixed;
+  z-index: 1000;
+
+  width: 250px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -125px;
+
+  border: 2px solid #393E46;
+  padding: 10px;
+
+  background-color: #F7F7F7;
+}
