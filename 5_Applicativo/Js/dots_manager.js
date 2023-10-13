@@ -87,7 +87,13 @@ function selectAllDots() {
 }
 
 function selectChangeDotsNums(){
-
+    let j = 0;
+    for(let i = dots.length - 1; i >= 0; i--){
+        dots[i].label = j + 1;
+        j++;
+    }
+    dots.reverse();
+    refreshDotCanvas();
 }
 
 
