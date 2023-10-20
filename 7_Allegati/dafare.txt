@@ -1,5 +1,9 @@
+- controllo condizioni numero dei puntini
+- quando sposti il mouse se vai a tot distanza dal puntino, esso cambia colore, se schiaccio in quel punto accanto 
+  al puntino il puntino si seleziona, azzurro
 - sistemare lo scale per tutto
 - visibility dei layer
-- quando i puntini sono tutti collegati se schiaccio una linea invece del puntino e sposto, sposto tutti i puntini insieme.
 - quando non è selezionata l'immagine non puoi aggiungere puntini
 - preview, stampa
+- sposta quadrati, elissi, linee (opzionale)
+- elimina quadrati, elissi, linee

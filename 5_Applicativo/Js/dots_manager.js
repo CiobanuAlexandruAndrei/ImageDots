@@ -117,30 +117,37 @@ function selectChangeDotsNums(){
 
 function selectChangeDotNum(){
     var num = prompt("Insert the new number of the dot")
-    num = parseInt(num);
 
-    let clone = new Dot();
-    clone.x = selectedDot.x;
-    clone.y = selectedDot.y;
-    clone.size = selectedDot.size;
-    clone.label = num;
-    clone.color = selectedDot.color;
+    if (!isNaN(num)){
+        num = parseInt(num);
+        let clone = new Dot();
+        clone.x = selectedDot.x;
+        clone.y = selectedDot.y;
+        clone.size = selectedDot.size;
+        clone.label = num;
+        clone.color = selectedDot.color;
 
-    for (let i = 0; i < dots.length; i++) {
-        let dotNumber = parseInt(selectedDot.label) - 1;
-        if (selectedDot == dots[i]) {
-            dots.splice(i, 1);
+        for (let i = 0; i < dots.length; i++) {
+            let dotNumber = parseInt(selectedDot.label) - 1;
+            if (selectedDot == dots[i]) {
+                dots.splice(i, 1);
+            }
         }
-    }
 
-    let lastDotNumber = 0; 
-    dots.splice(num - 1, 0, clone);
+        let lastDotNumber = 0; 
+        dots.splice(num - 1, 0, clone);
+        
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].label = i + 1;
+        }
+
+        selectedDot = clone;
+    } else{
+        alert('ERRORE: Inserisci un numero valido')
+    }
     
-    for (let i = 0; i < dots.length; i++) {
-        dots[i].label = i + 1;
-    }
-
     refreshDotCanvas();
+    console.log(dots);
 }
 
 function connectDots() {
