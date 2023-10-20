@@ -1,9 +1,5 @@
 - sistemare lo scale per tutto
-- primo puntino, numeri
 - visibility dei layer
 - quando i puntini sono tutti collegati se schiaccio una linea invece del puntino e sposto, sposto tutti i puntini insieme.
 - quando non è selezionata l'immagine non puoi aggiungere puntini
-- posso ingrandire tutti i puntini in una volta selezionando un'opzione
-- sistemare il codice che fa proprio schif
 - preview, stampa
-- seleziona tutti i puntini e ingrandiscili tutti / spostali tutti
