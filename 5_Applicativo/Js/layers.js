@@ -11,6 +11,10 @@ let isMouseDown = false;
 function selectDotsLayer(){
     dotsLayerSelected = true; 
     drawingLayerSelected = false;
+
+    dotsLayerVisibility = false;  
+    drawingLayerVisibility = false;
+
     refreshDotCanvas();
     
     clearSelectedDot();
@@ -43,6 +47,9 @@ function selectDrawingLayer() {
     dotsLayerSelected = false;
     drawingLayerSelected = true;
     
+    dotsLayerVisibility = false;  
+    drawingLayerVisibility = false;
+    
     refreshDrawingCanvas();
 
     dotsCanvas.style.display = "none";
@@ -66,6 +73,32 @@ function selectDrawingLayer() {
     }
 
     connectDotsElement.style.display = "none";
+}
+
+function selectDotsLayerVisibility(){
+    if(!dotsLayerSelected && drawingLayerSelected){
+        if(dotsLayerVisibility){
+            dotsLayerVisibility = false;
+            dotImageElement.src = '../Img/EyeDark.png';
+        }else{
+            dotsLayerVisibility = true;
+            dotImageElement.src = '../Img/HideDark.png';
+        }
+        refreshDrawingCanvas()
+    }
+}
+
+function selectDrawingLayerVisibility(){
+    if(dotsLayerSelected && !drawingLayerSelected){
+        if(drawingLayerVisibility){
+            drawingLayerVisibility = false;
+            drawingImageElement.src = '../Img/EyeDark.png';
+        }else{
+            drawingLayerVisibility = true;
+            drawingImageElement.src = '../Img/HideDark.png';
+        }
+        refreshDotCanvas()
+    }
 }
 
 const dotMenuItemsElement = document.getElementsByClassName("dot-menu-element");

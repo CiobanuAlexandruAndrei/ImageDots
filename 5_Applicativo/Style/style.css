@@ -175,6 +175,10 @@
   background-color: none;
 }
 
+.layer-menu-item-visibility:hover{
+  cursor: pointer;
+}
+
 .layer-menu-item-visibility img{
 
 }

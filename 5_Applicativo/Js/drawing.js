@@ -95,23 +95,28 @@ function clearDrawingCanvas() {
     drawingContext.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
 }
 
-function drawDrawingCanvas() {
+function drawDrawingCanvas(context) {
+
     for (let line of lines) {
-        line.draw(drawingContext);
+        line.draw(context);
     }
 
     for (let rect of rects) {
-        rect.draw(drawingContext);
+        rect.draw(context);
     }
 
     for (ellipse of ellipses) {
-        ellipse.draw(drawingContext);
+        ellipse.draw(context);
+    }
+
+    if(dotsLayerVisibility){
+        drawDotCanvas(drawingContext);
     }
 }
 
 function refreshDrawingCanvas() {
     clearDrawingCanvas();
-    drawDrawingCanvas();
+    drawDrawingCanvas(drawingContext);
 }
 
 

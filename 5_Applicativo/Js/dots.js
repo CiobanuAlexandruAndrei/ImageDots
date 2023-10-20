@@ -53,20 +53,24 @@ function clearDotCanvas() {
 }
 
 
-function drawDotCanvas() {
+function drawDotCanvas(context) {
     if (areDotsConnected) {
         drawDotsConnections();
     }
 
     for (let dot of dots) {
-        dot.draw(dotsContext);
+        dot.draw(context);
     }
 
 }
 
 function refreshDotCanvas() {
     clearDotCanvas();
-    drawDotCanvas();
+    if(drawingLayerVisibility){
+        drawDrawingCanvas(dotsContext);
+    }
+    
+    drawDotCanvas(dotsContext);
 }
 
 function drawDotsConnections() {
@@ -118,12 +122,13 @@ const moveDot = event => {
         const newX = event.offsetX;
         const newY = event.offsetY;
         
-        clearDotCanvas();
+        //clearDotCanvas();
         for(let i = 0; i < dots.length; i++){
             dots[i].x = dots[i].x + (newX - x);
             dots[i].y = dots[i].y + (newY - y);
         }
-        drawDotCanvas();
+        //drawDotCanvas(dotsContext);
+        refreshDotCanvas();
 
         x = newX;
         y = newY;
@@ -134,10 +139,11 @@ const moveDot = event => {
         x = newX;
         y = newY;
 
-        clearDotCanvas();
+        //clearDotCanvas();
         selectedDot.x = x;
         selectedDot.y = y;
-        drawDotCanvas();
+        //drawDotCanvas(dotsContext);
+        refreshDotCanvas();
 
         console.log(x, y);
     } 
