@@ -156,7 +156,7 @@ function connectDots() {
         connectDotsTextElement.innerText = "Deconnect dots";
         selectConnectDotsElement.style.backgroundColor = "#393E46";
 
-        drawDotsConnections();
+        drawDotsConnections(dotsContext);
     } else {
         connectDotsTextElement.innerText = "Connect dots";
         selectConnectDotsElement.style.backgroundColor = "#87CBB9";

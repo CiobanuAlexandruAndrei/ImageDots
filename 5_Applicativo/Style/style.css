@@ -282,6 +282,9 @@ input[type=color]{
   background-color: #87CBB9;
   padding: 10px;
   margin-right: 10px;
+
+  min-width: 150px;
+  white-space: nowrap; 
 }
 
 #connect-dots-menu:hover{
@@ -300,19 +303,63 @@ input[type=color]{
   padding-bottom: 15px;
 }
 
-#number-menu{
+#save-menu{
   position: fixed;
   z-index: 1000;
 
-  width: 250px;
-  height: 100px;
+  width: 350px;
+  height: 300px;
   top: 50%;
   left: 50%;
-  margin-top: -50px;
-  margin-left: -125px;
+  margin-top: -150px;
+  margin-left: -175px;
 
   border: 2px solid #393E46;
-  padding: 10px;
+  padding: 30px;
 
   background-color: #F7F7F7;
+}
+
+#save-menu h1{
+  margin-bottom: 5px;
+}
+
+#save-menu .container{
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#save-options-element{
+  /* padding-left: 30px; */
+}
+
+#save-canvas-element{
+  background-color: #fff;
+  height: 250px;
+  width: 250px;
+  margin-bottom: 25px;
+  border: #393E46 2px solid;
+}
+
+.checkbox{
+  border: 2px solid #393E46;
+  background-color: #fff;
+}
+
+.save-button{
+  text-align: center;
+  background-color: #393E46;
+  color: #EEEEEE;
+  height: 25px;
+  font-size: 12px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  padding: 5px;
+}
+
+#print-button{
+  background-color: #fff;
+  color: #393E46;
+  border: #393E46 1px solid;
 }

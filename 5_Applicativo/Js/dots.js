@@ -55,7 +55,7 @@ function clearDotCanvas() {
 
 function drawDotCanvas(context) {
     if (areDotsConnected) {
-        drawDotsConnections();
+        drawDotsConnections(context);
     }
 
     for (let dot of dots) {
@@ -73,11 +73,11 @@ function refreshDotCanvas() {
     drawDotCanvas(dotsContext);
 }
 
-function drawDotsConnections() {
+function drawDotsConnections(context) {
     let dotBefore = dots[dots.length - 1];
     for (let i = 0; i < dots.length; i++) {
         let line = new Line(dotBefore.x, dotBefore.y, dots[i].x, dots[i].y); // TODO: aggiungere come attributi beforeDot e afterDot così non devo sempre cambiare coordinate
-        line.draw(dotsContext);
+        line.draw(context);
         dotBefore = dots[i];
     }
 }

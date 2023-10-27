@@ -10,6 +10,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="stylesheet" href="Style/style.css">
+	<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+	<script src="https://printjs-4de6.kxcdn.com/print.min.css"></script>
 </head>
 
 <body>
@@ -17,11 +19,11 @@
 		<div id="navbar">
 			<!-- <div class="navbar-item">File</div> -->
 			<div class="navbar-item">
-				<input type="file" style="width:0px;visibility: hidden;" name="file-selector" id="file-selector" accept=".jpg, .jpeg, .png">
+				<input type="file" style="width:0px;visibility: hidden;" name="file-selector" id="file-selector" accept=".jpg, .jpeg, .png, .webp">
 				<label id="label-for-file-selector" for="file-selector">Open</label>
 			</div>
 			<div class="navbar-item"><a onclick="closeImage()">Close</a></div>
-			<div class="navbar-item"><a onclick="saveCanvas()">Save</a></div>
+			<div class="navbar-item"><a onclick="openSaveCanvasMenu()">Save</a></div>
 		</div>
 
 		<div id="toolbar">
@@ -83,9 +85,31 @@
 			</div>
 		</div>
 
-		<!-- <div id="number-menu">
-			NUMERI NUMERI NUMERI NUMEEEEEEEEEEEEEEERIIIIIIIIIII
-		</div> -->
+		<div onmouseleave="" style="display: none;" id="save-menu">
+			<h1>Save</h1>
+			<div class="container">
+				<!-- <div id="save-canvas-element">
+				
+				</div> -->
+				<div id="save-options-element">
+					<label for="">Name</label>
+					<br>
+					<input id="saveCanvasName" type="text" name="" id="">
+					<br>
+					<br>
+					<input id="saveCanvasIncludeDrawings" checked class="checkbox" type="checkbox" name="areDrawingsDrawn" id="">
+					<label for="areDrawingsDrawn"> Include drawings </label>
+					<br>
+					<input class="checkbox" type="checkbox" name="areDrawingsDrawn" id="">
+					<label for="areDrawingsDrawn"> Connect dots (solution) </label>
+					<br>
+					<input class="checkbox" type="checkbox" name="areDrawingsDrawn" id="">
+					<label for="areDrawingsDrawn"> Include name in the image </label>
+				</div>
+			</div>
+			<div onclick="saveCanvas()" class="save-button">Save</div>
+			<div onclick="printCanvas()" id="print-button" class="save-button">Print</div>
+		</div>
 
 		<div id="layer-menu">
 			<!-- <div class="layer-menu-item">

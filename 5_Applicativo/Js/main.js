@@ -33,11 +33,59 @@ function closeImage() {
     location.reload()
 }
 
+function openSaveCanvasMenu(){
+    saveMenu.style.display = "block";
+}
+
+function closeSaveCanvasMenu(){
+    saveMenu.style.display = "none";
+}
+
+function printCanvas() {  
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    let wereDotsConnected = areDotsConnected;
+    areDotsConnected = true;
+    drawDotCanvas(context);
+    areDotsConnected = wereDotsConnected;
+
+    if(saveMenuAreDrawingsIncludedInput.checked){
+        drawDrawingCanvas(context);
+    }
+
+    printJS({printable: document.querySelector("#workspace-canvas").toDataURL(), type: 'image', imageStyle: 'width:100%'});
+
+    closeSaveCanvasMenu()
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
+
 function saveCanvas() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    let wereDotsConnected = areDotsConnected;
+    areDotsConnected = true;
+    drawDotCanvas(context);
+    areDotsConnected = wereDotsConnected;
+
+    let imageTitle = saveMenuTitleInput.value;
+     
+    
     let link = document.createElement('a');
-    link.download = 'image.png';
-    link.href = document.getElementById('dots-canvas').toDataURL()
+    if(imageTitle){
+        link.download = imageTitle + '.png';
+    }else{
+        link.download = 'image.png';
+    }
+
+    if(saveMenuAreDrawingsIncludedInput.checked){
+        drawDrawingCanvas(context);
+    }
+    
+   
+    link.href = document.getElementById('workspace-canvas').toDataURL()
     link.click();
+    closeSaveCanvasMenu()
+    context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 const chooseFile = document.getElementById("file-selector");
@@ -47,7 +95,9 @@ chooseFile.addEventListener("change", function () {
 
 const canvas = document.getElementById("workspace-canvas");
 const context = canvas.getContext('2d');
-
+const saveMenu = document.getElementById("save-menu");
+const saveMenuTitleInput = document.getElementById("saveCanvasName");
+const saveMenuAreDrawingsIncludedInput = document.getElementById("saveCanvasIncludeDrawings");
 
 selectDotsLayer();
 
