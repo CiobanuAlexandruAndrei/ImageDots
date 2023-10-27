@@ -1,7 +1,7 @@
 
 - quando sposti il mouse se vai a tot distanza dal puntino, esso cambia colore, se schiaccio in quel punto accanto 
   al puntino il puntino si seleziona, azzurro
-- sistemare lo scale per tutto
+
 - quando non è selezionata l'immagine non puoi aggiungere puntini
 - sposta quadrati, elissi, linee (opzionale)
 - elimina quadrati, elissi, linee

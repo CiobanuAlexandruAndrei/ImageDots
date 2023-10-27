@@ -5,6 +5,8 @@ let areDotsConnected = false;
 function removeAllDotsEvents(){
     dotsCanvas.removeEventListener('mousedown', addDot);
     dotsCanvas.removeEventListener('mousedown', selectDot);
+    dotsCanvas.removeEventListener('mousemove', checkPossibleSelection);
+
 }
 
 function resetDotsOptionsElements(){
@@ -25,6 +27,7 @@ function selectFreeMode() {
     resetDotsOptionsElements();
 
     dotsCanvas.addEventListener('mousedown', selectDot);
+    dotsCanvas.addEventListener('mousemove', checkPossibleSelection);
 
     selectFreeModeOptionElement.style.background = "#393E46";
     selectFreeModeOptionElement.getElementsByTagName('img')[0].src = "Img/CursorLight.png";
@@ -128,13 +131,11 @@ function selectChangeDotNum(){
         clone.color = selectedDot.color;
 
         for (let i = 0; i < dots.length; i++) {
-            let dotNumber = parseInt(selectedDot.label) - 1;
             if (selectedDot == dots[i]) {
                 dots.splice(i, 1);
             }
         }
-
-        let lastDotNumber = 0; 
+      
         dots.splice(num - 1, 0, clone);
         
         for (let i = 0; i < dots.length; i++) {

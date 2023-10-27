@@ -5,6 +5,7 @@ let dots = [];
 let lastDotSize = -1;
 
 let selectedDot = null;
+let possibleSelectedDot = null;
 let areAllDotsSelected = false;
 
 
@@ -169,7 +170,7 @@ function selectDot(event) {
     let selected = false;
 
     for (let dot of dots) {
-        if (Math.abs(dot.x - x) < dot.size && Math.abs(dot.y - y) < dot.size) {
+        if (Math.abs(dot.x - x) < dot.size + 25 && Math.abs(dot.y - y) < dot.size + 25) {
             console.log(dot.label + " schiacciato");
             dot.color = "#266DD3";
 
@@ -204,3 +205,35 @@ function selectDot(event) {
 
 }
 
+const checkPossibleSelection = event => {
+    let x = scaleCanvasX(event.x);
+    let y = scaleCanvasY(event.y);
+
+    let found = false;
+
+    for (let dot of dots) {
+        if (Math.abs(dot.x - x) < dot.size + 25 && Math.abs(dot.y - y) < dot.size + 25) {
+            
+            if(possibleSelectedDot != selectedDot){
+                possibleSelectedDot.color = "#000";
+            }
+
+            if(dot == possibleSelectedDot && dot == selectedDot){
+                possibleSelectedDot.color = "#266DD3";
+            }else{
+                possibleSelectedDot = dot;
+                possibleSelectedDot.color = "#696969";
+            }
+
+            found = true;
+            break;
+        }
+    }
+
+    if(!found && possibleSelectedDot != selectedDot){
+        possibleSelectedDot.color = "#000";
+
+    }
+
+    refreshDotCanvas();
+}
