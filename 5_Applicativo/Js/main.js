@@ -45,7 +45,7 @@ function printCanvas() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     let wereDotsConnected = areDotsConnected;
-    areDotsConnected = true;
+    areDotsConnected = saveMenuIsSolutionIncludedInput.checked;
     drawDotCanvas(context);
     areDotsConnected = wereDotsConnected;
 
@@ -63,12 +63,12 @@ function saveCanvas() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     let wereDotsConnected = areDotsConnected;
-    areDotsConnected = true;
+    areDotsConnected = saveMenuIsSolutionIncludedInput.checked;
     drawDotCanvas(context);
     areDotsConnected = wereDotsConnected;
 
     let imageTitle = saveMenuTitleInput.value;
-     
+    
     
     let link = document.createElement('a');
     if(imageTitle){
@@ -98,6 +98,7 @@ const context = canvas.getContext('2d');
 const saveMenu = document.getElementById("save-menu");
 const saveMenuTitleInput = document.getElementById("saveCanvasName");
 const saveMenuAreDrawingsIncludedInput = document.getElementById("saveCanvasIncludeDrawings");
+const saveMenuIsSolutionIncludedInput = document.getElementById("saveCanvasIncludeSolution");
 
 selectDotsLayer();
 
