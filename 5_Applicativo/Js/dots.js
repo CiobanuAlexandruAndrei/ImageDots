@@ -170,7 +170,7 @@ function selectDot(event) {
     let selected = false;
 
     for (let dot of dots) {
-        if (Math.abs(dot.x - x) < dot.size + 25 && Math.abs(dot.y - y) < dot.size + 25) {
+        if (Math.abs(dot.x - x) < dot.size && Math.abs(dot.y - y) < dot.size) {
             console.log(dot.label + " schiacciato");
             dot.color = "#266DD3";
 
@@ -211,7 +211,7 @@ const checkPossibleSelection = event => {
     let found = false;
 
     for (let dot of dots) {
-        if (Math.abs(dot.x - x) < dot.size + 25 && Math.abs(dot.y - y) < dot.size + 25) {
+        if (Math.abs(dot.x - x) < dot.size && Math.abs(dot.y - y) < dot.size) {
             
             if(possibleSelectedDot != selectedDot){
                 possibleSelectedDot.color = "#000";

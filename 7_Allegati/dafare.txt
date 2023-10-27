@@ -1,4 +1,6 @@
 - sistemare rettangoli/elissi/linee che spawnano
+- split numeri puntini (ricordati di fadda)
+- controllo immagini troppo piccole
 - quando non è selezionata l'immagine non puoi aggiungere puntini
 - sposta quadrati, elissi, linee (opzionale)
 - elimina quadrati, elissi, linee
