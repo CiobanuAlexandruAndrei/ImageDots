@@ -92,12 +92,9 @@ function clearSelectedDot() {
 
 function addDot(event) {
     if(!areAllDotsSelected){
-        let rect = dotsCanvas.getBoundingClientRect();
-        let scaleX = dotsCanvas.width / rect.width;
-        let scaleY = dotsCanvas.height / rect.height;
-
-        let x = Math.round((event.x - rect.left) * scaleX);
-        let y = Math.round((event.y - rect.top) * scaleY);
+        
+        let x = scaleCanvasX(event.x);
+        let y = scaleCanvasY(event.y);
 
         let dot = new Dot();
         dot.x = x;
@@ -114,13 +111,13 @@ function addDot(event) {
 const stopMovingDot = () => { isMouseDown = false; }
 const startMovingDot = event => {
     isMouseDown = true;
-    [x, y] = [event.offsetX, event.offsetY];
+    [x, y] = [scaleCanvasX(event.x), scaleCanvasY(event.y)];
 }
 const moveDot = event => {
     
     if (isMouseDown && isSelectionMode && areAllDotsSelected) {
-        const newX = event.offsetX;
-        const newY = event.offsetY;
+        const newX = scaleCanvasX(event.x);
+        const newY = scaleCanvasY(event.y);
         
         //clearDotCanvas();
         for(let i = 0; i < dots.length; i++){
@@ -134,8 +131,8 @@ const moveDot = event => {
         y = newY;
         console.log(x, y);
     } else if (isMouseDown && isSelectionMode && selectedDot != null) {
-        const newX = event.offsetX;
-        const newY = event.offsetY;
+        const newX = scaleCanvasX(event.x);
+        const newY = scaleCanvasY(event.y);
         x = newX;
         y = newY;
 
@@ -149,14 +146,25 @@ const moveDot = event => {
     } 
 }
 
-function selectDot(event) {
-    
-    let rect = dotsCanvas.getBoundingClientRect();
-    let scaleX = dotsCanvas.width / rect.width;
-    let scaleY = dotsCanvas.height / rect.height;
+function scaleCanvasX(usedX){
+    let rect = canvas.getBoundingClientRect();
+    let scaleX = canvas.width / rect.width;
+    let calculatedX = Math.round((usedX - rect.left) * scaleX);
 
-    let x = Math.round((event.x - rect.left) * scaleX);
-    let y = Math.round((event.y - rect.top) * scaleY);
+    return calculatedX;
+}
+
+function scaleCanvasY(usedY){
+    let rect = canvas.getBoundingClientRect();
+    let scaleY = canvas.height / rect.height;
+    let calculatedY = Math.round((usedY - rect.top) * scaleY);
+
+    return calculatedY;
+}
+
+function selectDot(event) {
+    let x = scaleCanvasX(event.x);
+    let y = scaleCanvasY(event.y);
 
     let selected = false;
 

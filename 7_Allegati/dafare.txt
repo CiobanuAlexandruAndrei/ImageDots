@@ -1,4 +1,4 @@
--- preview, stampa
+
 - quando sposti il mouse se vai a tot distanza dal puntino, esso cambia colore, se schiaccio in quel punto accanto 
   al puntino il puntino si seleziona, azzurro
 - sistemare lo scale per tutto

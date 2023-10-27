@@ -129,15 +129,16 @@ const startDrawingEllipse = event => {
     isMouseDown = true;
     first = true;
     let lastEllipse = null;
-    [startX, startY] = [event.offsetX, event.offsetY]
-    [x, y] = [event.offsetX, event.offsetY];
+    [startX, startY] = [scaleCanvasX(event.x), scaleCanvasY(event.y)]
+    [x, y] = [scaleCanvasX(event.x), scaleCanvasY(event.y)];
 }
 
 const drawEllipse = event => {
     if (isMouseDown) {
         refreshDrawingCanvas();
-        const newX = event.offsetX;
-        const newY = event.offsetY;
+       
+        const newX = scaleCanvasX(event.x);
+        const newY = scaleCanvasY(event.y);
 
         if (!first) {  // se no quando inizi a disegnare vedi una cosa strana
 
@@ -170,15 +171,16 @@ const startDrawingRect = event => {
     isMouseDown = true;
     first = true;
     let lastRect = null;
-    [startX, startY] = [event.offsetX, event.offsetY]
-    [x, y] = [event.offsetX, event.offsetY];
+    [startX, startY] = [scaleCanvasX(event.x), scaleCanvasY(event.y)]
+    [x, y] = [scaleCanvasX(event.x), scaleCanvasY(event.y)];
 }
+
 
 const drawRect = event => {
     if (isMouseDown) {
         refreshDrawingCanvas();
-        const newX = event.offsetX;
-        const newY = event.offsetY;
+        const newX = scaleCanvasX(event.x);
+        const newY = scaleCanvasY(event.y);
 
         if (!first) {  // se no quando inizi a disegnare vedi una cosa strana
             rect = new Rect(startX, startY, x - startX, y - startY);
@@ -203,12 +205,12 @@ const drawRect = event => {
 const stopDrawingLine = () => { isMouseDown = false; }
 const startDrawingLine = event => {
     isMouseDown = true;
-    [x, y] = [event.offsetX, event.offsetY];
+    [x, y] = [scaleCanvasX(event.x), scaleCanvasY(event.y)];
 }
 const drawLine = event => {
     if (isMouseDown) {
-        const newX = event.offsetX;
-        const newY = event.offsetY;
+        const newX = scaleCanvasX(event.x);
+        const newY = scaleCanvasY(event.y);
 
         line = new Line(x, y, newX, newY);
         line.size = drawingSize;
@@ -226,12 +228,12 @@ const drawLine = event => {
 const stopErasingDrawing = () => { isMouseDown = false; }
 const startErasingDrawing = event => {
     isMouseDown = true;
-    [x, y] = [event.offsetX, event.offsetY];
+    [x, y] = [scaleCanvasX(event.x), scaleCanvasY(event.y)];
 }
 const eraseDrawing = event => {
     if (isMouseDown) {
-        const newX = event.offsetX;
-        const newY = event.offsetY;
+        const newX = scaleCanvasX(event.x);
+        const newY = scaleCanvasY(event.y);
 
         for (let i = 0; i < lines.length; i++) {
             if (Math.abs(lines[i].fromX - newX) < drawingSize + 1 &&
