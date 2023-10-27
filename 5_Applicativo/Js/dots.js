@@ -176,7 +176,6 @@ function selectDot(event) {
 
             if (dot != selectedDot && selectedDot != null) {
                 clearSelectedDot();
-                console.log("gaga");
             }
 
             selectedDot = dot;

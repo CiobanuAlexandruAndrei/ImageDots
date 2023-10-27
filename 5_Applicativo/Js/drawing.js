@@ -8,6 +8,7 @@ let lines = [];
 let rects = [];
 let ellipses = [];
 
+let selectedDrawing = null;
 
 class Line {
     constructor(fromX, fromY, toX, toY) {
@@ -122,7 +123,11 @@ function refreshDrawingCanvas() {
 
 const stopDrawingEllipse = () => {
     isMouseDown = false;
-    ellipses.push(lastEllipse);
+    if(lastEllipse){
+        ellipses.push(lastEllipse);
+    }
+    
+    lastEllipse = null;
     refreshDrawingCanvas();
 }
 const startDrawingEllipse = event => {
@@ -162,9 +167,15 @@ const drawEllipse = event => {
     first = false;
 }
 
-const stopDrawingRect = () => {
+const stopDrawingRect = () => {  // Quando esci dal canvas se ne creano altri quindi setto a null lastRect
     isMouseDown = false;
-    rects.push(lastRect);
+    
+    if(lastRect){
+        rects.push(lastRect);
+    }
+    
+    lastRect = null; 
+    console.log(rects);
     refreshDrawingCanvas();
 }
 const startDrawingRect = event => {
@@ -174,7 +185,6 @@ const startDrawingRect = event => {
     [startX, startY] = [scaleCanvasX(event.x), scaleCanvasY(event.y)]
     [x, y] = [scaleCanvasX(event.x), scaleCanvasY(event.y)];
 }
-
 
 const drawRect = event => {
     if (isMouseDown) {
@@ -192,7 +202,6 @@ const drawRect = event => {
 
             lastRect = rect;
         }
-        //lines.push(line);
 
         //[x, y] = [newX, newY];
         x = newX;
@@ -254,4 +263,21 @@ const eraseDrawing = event => {
         y = newY;
     }
     refreshDrawingCanvas();
+}
+
+function selectDrawings(event) {
+    let x = scaleCanvasX(event.x);
+    let y = scaleCanvasY(event.y);
+
+    let selected = false;
+
+    for(let rect of rects){
+        if(x > rect.x && x < rect.x + rect.width && y > rect.y && y < rect.y + rect.height){
+            console.log('NICE RECT');
+            
+            selected = true;
+            //selectedDrawing = rect;
+            break;
+        }
+    }
 }

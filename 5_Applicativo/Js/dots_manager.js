@@ -86,6 +86,7 @@ function selectDeleteMode() {
 
 function selectAllDots() {
     if (areAllDotsSelected) {
+        dotsCanvas.addEventListener('mousemove', checkPossibleSelection);
         areAllDotsSelected = false;
 
         selectAllDotsOptionElement.style.backgroundColor = "#F7F7F7";
@@ -95,7 +96,11 @@ function selectAllDots() {
             dots[i].color = "#000";
         }
         selectDeleteOptionElement.style.display = "none";
+
+        selectedDot = null;
     } else {
+        dotsCanvas.removeEventListener('mousemove', checkPossibleSelection);
+
         areAllDotsSelected = true;
         selectAllDotsOptionElement.style.backgroundColor = "#393E46";
         selectAllDotsOptionElement.getElementsByTagName("img")[0].src = "Img/SelectLight.png";

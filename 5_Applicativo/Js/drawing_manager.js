@@ -19,6 +19,8 @@ function removeAllDrawingEvents() {
     drawingCanvas.removeEventListener('mousemove', drawEllipse);
     drawingCanvas.removeEventListener('mouseup', stopDrawingEllipse);
     drawingCanvas.removeEventListener('mouseout', stopDrawingEllipse);
+
+    drawingCanvas.removeEventListener('mousedown', selectDrawings);
 }
 
 function resetOptionElements() {
@@ -41,6 +43,8 @@ function resetOptionElements() {
 function selectDrawingFreeMode() {
     removeAllDrawingEvents();
     resetOptionElements();
+
+    drawingCanvas.addEventListener('mousedown', selectDrawings);
 
     selectDrawingFreeModeElement.style.backgroundColor = "#393E46";
     selectDrawingFreeModeElement.getElementsByTagName("img")[0].src = "Img/CursorLight.png";
