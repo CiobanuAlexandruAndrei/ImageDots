@@ -1,5 +1,7 @@
 
 function removeAllDrawingEvents() {
+    isSelectionMode = false;
+
     drawingCanvas.removeEventListener('mousedown', startDrawingLine);
     drawingCanvas.removeEventListener('mousemove', drawLine);
     drawingCanvas.removeEventListener('mouseup', stopDrawingLine);
@@ -43,6 +45,8 @@ function resetOptionElements() {
 function selectDrawingFreeMode() {
     removeAllDrawingEvents();
     resetOptionElements();
+
+    isSelectionMode = true;
 
     drawingCanvas.addEventListener('mousedown', selectDrawings);
 
@@ -126,13 +130,34 @@ function getDrawingColor(){
     drawingColor = input.value;
 }
 
+function selectDeleteDrawingMode(){
+    for(let i = 0; i < rects.length; i++){
+        if (selectedDrawing == rects[i]) {
+            rects.splice(i, 1);
+        }
+    }
+    for(let i = 0; i < ellipses.length; i++){
+        if (selectedDrawing == ellipses[i]) {
+            ellipses.splice(i, 1);
+        }
+    }
+
+    clearSelectedDrawing();
+    refreshDrawingCanvas();
+}
+
 const drawingCanvas = document.getElementById("drawing-canvas");
 const drawingContext = drawingCanvas.getContext('2d');
 
-let selectDrawingFreeModeElement = document.getElementById("select-free-drawing-mode-option");
-let selectPenModeElement = document.getElementById("select-pen-mode-option");
-let selectEraseDrawingElement = document.getElementById("select-erase-drawing-mode-option");
-let selectDrawingRectElement = document.getElementById("select-drawing-rect-mode-option");
-let selectDrawingElypseElement = document.getElementById("select-drawing-elypse-mode-option");
-let selectDrawingShapeFilledElement = document.getElementById("select-drawing-shape-filled-mode-option");
+const selectDrawingFreeModeElement = document.getElementById("select-free-drawing-mode-option");
+const selectPenModeElement = document.getElementById("select-pen-mode-option");
+const selectEraseDrawingElement = document.getElementById("select-erase-drawing-mode-option");
+const selectDrawingRectElement = document.getElementById("select-drawing-rect-mode-option");
+const selectDrawingElypseElement = document.getElementById("select-drawing-elypse-mode-option");
+const selectDrawingShapeFilledElement = document.getElementById("select-drawing-shape-filled-mode-option");
+const selectDeleteDrawingOptionElement = document.getElementById("delete-drawing-option");
 
+drawingCanvas.addEventListener('mousedown', startMovingDrawing);
+drawingCanvas.addEventListener('mousemove', moveDrawing);
+drawingCanvas.addEventListener('mouseup', stopMovingDrawing);
+drawingCanvas.addEventListener('mouseout', stopMovingDrawing);

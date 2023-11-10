@@ -69,7 +69,9 @@ function selectDrawingLayer() {
     }
 
     for (item of drawingMenuItemsElement) {
-        item.style.display = "block";
+        if (item.id != "delete-drawing-option") {
+            item.style.display = "block";
+        }
     }
 
     connectDotsElement.style.display = "none";

@@ -3,6 +3,8 @@ let isSelectionMode = false;
 let areDotsConnected = false;
 
 function removeAllDotsEvents(){
+    isSelectionMode = false;
+
     dotsCanvas.removeEventListener('mousedown', addDot);
     dotsCanvas.removeEventListener('mousedown', selectDot);
     dotsCanvas.removeEventListener('mousemove', checkPossibleSelection);
@@ -21,10 +23,10 @@ function resetDotsOptionsElements(){
 }
 
 function selectFreeMode() {
-    isSelectionMode = true;
-
     removeAllDotsEvents();
     resetDotsOptionsElements();
+
+    isSelectionMode = true;
 
     dotsCanvas.addEventListener('mousedown', selectDot);
     dotsCanvas.addEventListener('mousemove', checkPossibleSelection);
@@ -34,8 +36,6 @@ function selectFreeMode() {
 }
 
 function selectAddMode() {
-    isSelectionMode = false;
-
     removeAllDotsEvents();
     resetDotsOptionsElements();
     
@@ -54,6 +54,7 @@ function selectAddMode() {
 function selectDeleteMode() {
     if(areAllDotsSelected){
         dots.splice(0, dots.length);
+        // TODO: deseleziona il seleziona tutto
     } else{
         for (let i = 0; i < dots.length; i++) {
             let dotNumber = parseInt(selectedDot.label) - 1;

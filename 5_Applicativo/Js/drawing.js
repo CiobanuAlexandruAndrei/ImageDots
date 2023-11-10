@@ -120,6 +120,11 @@ function refreshDrawingCanvas() {
     drawDrawingCanvas(drawingContext);
 }
 
+function clearSelectedDrawing(){
+    selectedDrawing = null;
+    selectDeleteDrawingOptionElement.style.display = 'none';
+}
+
 
 const stopDrawingEllipse = () => {
     isMouseDown = false;
@@ -133,7 +138,7 @@ const stopDrawingEllipse = () => {
 const startDrawingEllipse = event => {
     isMouseDown = true;
     first = true;
-    let lastEllipse = null;
+    let lastEllipse = new Ellipse(0, 0, 0, 0, 0, 0, 0, 0, 0);
     [startX, startY] = [scaleCanvasX(event.x), scaleCanvasY(event.y)]
     [x, y] = [scaleCanvasX(event.x), scaleCanvasY(event.y)];
 }
@@ -270,14 +275,57 @@ function selectDrawings(event) {
     let y = scaleCanvasY(event.y);
 
     let selected = false;
+    
+    console.log("Schiacciato --> " + x + "; " + y);
 
     for(let rect of rects){
         if(x > rect.x && x < rect.x + rect.width && y > rect.y && y < rect.y + rect.height){
-            console.log('NICE RECT');
-            
             selected = true;
-            //selectedDrawing = rect;
+            selectedDrawing = rect;
             break;
         }
     }
+
+    if(!selected){
+        for(let ellipse of ellipses){
+            let theoricalX = Math.abs(x - ellipse.x);  // si considera ellipse.x come 0, punto di partenza
+            let theoricalY = Math.abs(x - ellipse.y);  // si considera ellipse.y come 0, punto di partenza
+            let distanceFromCenter = Math.sqrt(theoricalX * theoricalX, theoricalY * theoricalY);
+            console.log("Distance -> " + distanceFromCenter + "\n" + "Radius X -> " + ellipse.radiusX + "\n" + "Radius Y -> " + ellipse.radiusY);
+            if(distanceFromCenter < ellipse.radiusX && distanceFromCenter < ellipse.radiusY){
+                selected = true;
+                selectedDrawing = ellipse;
+                console.log("yay");
+                break;   
+            }
+        }
+    }
+
+    if(!selected){
+        clearSelectedDrawing();
+    } else{
+        selectDeleteDrawingOptionElement.style.display = 'block';
+    }
+}
+
+const stopMovingDrawing = () => { isMouseDown = false; }
+const startMovingDrawing = event => {
+    isMouseDown = true;
+    [x, y] = [scaleCanvasX(event.x), scaleCanvasY(event.y)];
+}
+const moveDrawing = event => {
+    
+    if (isMouseDown && isSelectionMode && selectedDrawing != null) {
+        const newX = scaleCanvasX(event.x);
+        const newY = scaleCanvasY(event.y);
+        x = newX;
+        y = newY;
+
+        selectedDrawing.x = x;
+        selectedDrawing.y = y;
+
+        refreshDrawingCanvas();
+
+        console.log(x, y);
+    } 
 }

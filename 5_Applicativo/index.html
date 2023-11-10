@@ -17,7 +17,6 @@
 <body>
 	<div id="app">
 		<div id="navbar">
-			<!-- <div class="navbar-item">File</div> -->
 			<div class="navbar-item">
 				<input type="file" style="width:0px;visibility: hidden;" name="file-selector" id="file-selector" accept=".jpg, .jpeg, .png, .webp">
 				<label id="label-for-file-selector" for="file-selector">Open</label>
@@ -50,9 +49,6 @@
 				<input id="dotSizeRange" type="range" name="" oninput="getDotSize()" value="5" min="5" max="50" step="5" orient="vertical" >
 			</div>
 			
-			<!-- <div id="add-mode-option" onclick="test()" class="toolbar-item">
-				<img src="Img/DotDark.png" alt="">
-			</div> -->
 
 			<!-- Drawing layer -->
 			<div id="select-free-drawing-mode-option" style="display: none; border-top: none; background-color: #393E46;" onclick="selectDrawingFreeMode()" class="toolbar-item drawing-menu-element">
@@ -73,6 +69,10 @@
 			</div>
 			<div id="select-drawing-shape-filled-mode-option" style="display: none;" onclick="selectFill()" class="toolbar-item drawing-menu-element">
 				<img src="Img/FillDark.png" alt="">
+			</div>
+
+			<div id="delete-drawing-option" style="display: none;" onclick="selectDeleteDrawingMode()" class="toolbar-item drawing-menu-element">
+				<img src="Img/Delete.png" alt="">
 			</div>
 
 			<div id="range-option" style="display: none;" id="drawing-range-option" class="toolbar-item drawing-menu-element">
