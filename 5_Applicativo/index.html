@@ -23,6 +23,7 @@
 			</div>
 			<div class="navbar-item"><a onclick="closeImage()">Close</a></div>
 			<div class="navbar-item"><a onclick="openSaveCanvasMenu()">Save</a></div>
+
 		</div>
 
 		<div id="toolbar">
@@ -109,6 +110,7 @@
 			</div>
 			<div onclick="saveCanvas()" class="save-button">Save</div>
 			<div onclick="printCanvas()" id="print-button" class="save-button">Print</div>
+			<div onclick="closeSaveCanvasMenu()" id="print-button" class="save-button">Cancel</div>
 		</div>
 
 		<div id="layer-menu">
@@ -138,8 +140,6 @@
 			</div>
 		</div>
 
-		<!-- TODO: Aggiungere un remove all dots -->
-
 		<div onclick="connectDots()" id="connect-dots-menu">
 			<div id="connect-dots-menu-image">
 				<img src="Img/Ellipsis.png" alt="">
@@ -152,6 +152,10 @@
 			<canvas id="dots-canvas"></canvas>
 			<canvas id="drawing-canvas"></canvas>
 			<!-- <canvas id="mix-canvas"></canvas> -->
+		</div>
+
+		<div id="footer">
+			Alexandru Ciobanu I3BB 2023/2024
 		</div>
 	</div>
 

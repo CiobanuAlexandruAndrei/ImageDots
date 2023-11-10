@@ -1,16 +1,33 @@
+/**
+ * drawing.js contiene la logica del funzionamento dei disegni, contiene classi ed eventi 
+ * che vengono usati in drawing_manager.js e gli altri file.
+ * 
+ * @author Alexandru Ciobanu
+ * @version 10.11.2023 
+ */
 
+let drawingSize = 5;  // Spessore linee rettangoli, elissi e linee.
+let drawingColor = "#000";  
+let areShapesFilled = false;  // Se i rettangoli ed ellissi sono riempite con il colore selezionato.
 
-let drawingSize = 5;
-let drawingColor = "#000";
-let areShapesFilled = false;
+let lines = [];  // Tutte le linee disegnate nel drawingContext, create con la classe Line.
+let rects = [];  // Tutti i rettangoli disegnati nel drawingContext, creati con la classe Rect.
+let ellipses = [];  // Tutte le elissi disegnate nel drawingContext, create con la classe Ellipse.
 
-let lines = [];
-let rects = [];
-let ellipses = [];
+let selectedDrawing = null;  // La forma selezionata che verrà eliminata, spostata, modificata.
 
-let selectedDrawing = null;
-
+/**
+ * Rappresenta le linee disegnate a mano libera.
+ */
 class Line {
+    /**
+     * Inizializza i parametri necessari al disegnamento.
+     * 
+     * @param fromX  X da dove parte la linea.
+     * @param fromY  Y da dove parte la linea
+     * @param toX   X dove arriva la linea.
+     * @param toY   Y dove arriva la linea.
+     */
     constructor(fromX, fromY, toX, toY) {
         this.fromX = fromX;
         this.fromY = fromY;
@@ -20,6 +37,11 @@ class Line {
         this.color = '#000';
     }
 
+    /**
+     * Disegna la linea.
+     * 
+     * @param context  il contesto dove verrà disegnata la linea, nella maggior parte dei casi sarà drawingContext.
+     */
     draw(context) {
         context.lineCap = 'round';
         context.beginPath();
@@ -31,7 +53,18 @@ class Line {
     }
 }
 
+/**
+ * Rappresenta i rettangoli disegnati.
+ */
 class Rect {
+    /**
+     * Inizializza i parametri necessari al disegnamento.
+     * 
+     * @param x  X dove inizia la forma. 
+     * @param y  Y dove inizia la forma.
+     * @param width  Larghezza della forma.
+     * @param height  Altezza della forma.
+     */
     constructor(x, y, width, height) {
         this.x = x;
         this.y = y;
@@ -44,6 +77,11 @@ class Rect {
         this.filled = false;
     }
 
+    /**
+     * Disegna il rettangolo.
+     * 
+     * @param context  il contesto dove verrà disegnata la linea, nella maggior parte dei casi sarà drawingContext.
+     */
     draw(context) {
         context.beginPath();
         if (!this.filled) {
@@ -59,7 +97,21 @@ class Rect {
     }
 }
 
+/**
+ * Rappresenta le elissi disegnate.
+ */
 class Ellipse {
+    /**
+     * Inizializza i parametri necessari al disegnamento.
+     * @param x  X del centro della forma.
+     * @param y  Y del centro della forma.
+     * @param radiusX  Lunghezza del raggio X della forma.
+     * @param radiusY  Lunghezza del raggio Y della forma.
+     * @param rotation  
+     * @param startAngle 
+     * @param endAngle 
+     * @param counterclockwise 
+     */
     constructor(x, y, radiusX, radiusY, rotation, startAngle, endAngle, counterclockwise) {
         this.x = x;
         this.y = y;
