@@ -144,10 +144,18 @@ class Ellipse {
     }
 }
 
+/**
+ * Pulisce il drawing canvas.
+ */
 function clearDrawingCanvas() {
     drawingContext.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
 }
 
+/**
+ * Disegna il drawing canvas.
+ * 
+ * @param context  serve in caso che dobbiamo disegnare il drawing canvas in altri context.
+ */
 function drawDrawingCanvas(context) {
 
     for (let line of lines) {
@@ -167,6 +175,9 @@ function drawDrawingCanvas(context) {
     }
 }
 
+/**
+ * Aggiorna il canvas,  e ridisegna
+ */
 function refreshDrawingCanvas() {
     clearDrawingCanvas();
     drawDrawingCanvas(drawingContext);

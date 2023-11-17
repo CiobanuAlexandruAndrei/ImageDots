@@ -9,7 +9,7 @@
 let dotsLayerSelected = false;  // solo uno alla volta può essere utilizzato
 let drawingLayerSelected = false;
 
-let dotsLayerVisibility = false;  // se tutti e due sono on si usa il context del terzo canvas
+let dotsLayerVisibility = false;  
 let drawingLayerVisibility = false;
 
 let isMouseDown = false;

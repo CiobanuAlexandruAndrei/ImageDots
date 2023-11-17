@@ -218,6 +218,12 @@ canvas {
 
   max-width: 170vh;
   max-height: 80vh;
+
+  /*
+  background-image: url('../Img/tostart.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  */
 }
 
 #workspace-canvas{
@@ -387,4 +393,15 @@ input[type=color]{
   width: 100%;
   font-size: 13px;
   color: #87CBB9;
+}
+
+@media print{
+  @page{
+    margin: 0;
+  }
+
+  body{
+    margin: 1.5cm;
+  }
+
 }

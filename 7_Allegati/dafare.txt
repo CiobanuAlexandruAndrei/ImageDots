@@ -1,3 +1,4 @@
+
 - controllo immagini troppo piccole
 - quando non è selezionata l'immagine non puoi aggiungere puntini
 - caricamento immagine con trascinamento (drag)
@@ -7,3 +8,11 @@
 
 - usare @media print
 distanza minore di raggio x e raggio y
+
+
+- cambiare riempimento e grandezza linee
+- Togliere i puntini dal file scaricato.
+- Sei sicuro prima di fare "Close" che refresha la pagina.
+- Sistemare cambiamento immagine (rimangono le forme disegnate)
+- Test
+- Documentazione

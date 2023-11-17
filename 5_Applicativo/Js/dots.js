@@ -1,5 +1,3 @@
-
-let dotsNum = 1;  
 let dotSize = 5;
 let dots = [];
 let lastDotSize = -1;
@@ -62,7 +60,6 @@ function drawDotCanvas(context) {
     for (let dot of dots) {
         dot.draw(context);
     }
-
 }
 
 function refreshDotCanvas() {
@@ -77,7 +74,7 @@ function refreshDotCanvas() {
 function drawDotsConnections(context) {
     let dotBefore = dots[dots.length - 1];
     for (let i = 0; i < dots.length; i++) {
-        let line = new Line(dotBefore.x, dotBefore.y, dots[i].x, dots[i].y); // TODO: aggiungere come attributi beforeDot e afterDot così non devo sempre cambiare coordinate
+        let line = new Line(dotBefore.x, dotBefore.y, dots[i].x, dots[i].y); 
         line.draw(context);
         dotBefore = dots[i];
     }
@@ -106,7 +103,6 @@ function addDot(event) {
         dots.push(dot);
         refreshDotCanvas();
     }
-    
 }
 
 const stopMovingDot = () => { isMouseDown = false; }
@@ -120,12 +116,11 @@ const moveDot = event => {
         const newX = scaleCanvasX(event.x);
         const newY = scaleCanvasY(event.y);
         
-        //clearDotCanvas();
         for(let i = 0; i < dots.length; i++){
             dots[i].x = dots[i].x + (newX - x);
             dots[i].y = dots[i].y + (newY - y);
         }
-        //drawDotCanvas(dotsContext);
+
         refreshDotCanvas();
 
         x = newX;
@@ -137,10 +132,8 @@ const moveDot = event => {
         x = newX;
         y = newY;
 
-        //clearDotCanvas();
         selectedDot.x = x;
         selectedDot.y = y;
-        //drawDotCanvas(dotsContext);
         refreshDotCanvas();
 
         console.log(x, y);
