@@ -31,6 +31,8 @@ class Dot {
         context.beginPath();
         context.fillStyle = this.color;
         context.arc(pointX, pointY, this.size, 0 * Math.PI, 2 * Math.PI);
+        //context.strokeStyle = "#266DD3";
+        //context.stroke();
         context.fill();
 
         if (this.label) {
@@ -122,21 +124,15 @@ const moveDot = event => {
         }
 
         refreshDotCanvas();
-
         x = newX;
         y = newY;
-        console.log(x, y);
     } else if (isMouseDown && isSelectionMode && selectedDot != null) {
         const newX = scaleCanvasX(event.x);
         const newY = scaleCanvasY(event.y);
-        x = newX;
-        y = newY;
-
-        selectedDot.x = x;
-        selectedDot.y = y;
+     
+        selectedDot.x = newX;
+        selectedDot.y = newY;
         refreshDotCanvas();
-
-        console.log(x, y);
     } 
 }
 
@@ -182,7 +178,7 @@ function selectDot(event) {
             break;
         }
     }
-
+                                                               
     if (!selected) {
         clearSelectedDot();
         if(areAllDotsSelected){

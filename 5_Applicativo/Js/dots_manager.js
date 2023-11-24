@@ -9,6 +9,10 @@ function removeAllDotsEvents(){
     dotsCanvas.removeEventListener('mousedown', selectDot);
     dotsCanvas.removeEventListener('mousemove', checkPossibleSelection);
 
+    dotsCanvas.removeEventListener('mousedown', startMovingDot);
+    dotsCanvas.removeEventListener('mousemove', moveDot);
+    dotsCanvas.removeEventListener('mouseup', stopMovingDot);
+    dotsCanvas.removeEventListener('mouseout', stopMovingDot);
 }
 
 function resetDotsOptionsElements(){
@@ -17,9 +21,6 @@ function resetDotsOptionsElements(){
 
     selectAddModeOptionElement.style.background = "#F7F7F7";
     selectAddModeOptionElement.getElementsByTagName('img')[0].src = "Img/DotDark.png";
-
-    //selectAllDotsOptionElement.style.background = "#F7F7F7";
-    //selectAllDotsOptionElement.getElementsByTagName('img')[0].src = "Img/SelectDark.png";
 }
 
 function selectFreeMode() {
@@ -30,6 +31,11 @@ function selectFreeMode() {
 
     dotsCanvas.addEventListener('mousedown', selectDot);
     dotsCanvas.addEventListener('mousemove', checkPossibleSelection);
+
+    dotsCanvas.addEventListener('mousedown', startMovingDot);
+    dotsCanvas.addEventListener('mousemove', moveDot);
+    dotsCanvas.addEventListener('mouseup', stopMovingDot);
+    dotsCanvas.addEventListener('mouseout', stopMovingDot);
 
     selectFreeModeOptionElement.style.background = "#393E46";
     selectFreeModeOptionElement.getElementsByTagName('img')[0].src = "Img/CursorLight.png";
@@ -114,7 +120,7 @@ function selectAllDots() {
     refreshDotCanvas();
 }
 
-function selectChangeDotsNums(){
+function selectInvertDotsNums(){
     let j = 0;
     for(let i = dots.length - 1; i >= 0; i--){
         dots[i].label = j + 1;
@@ -204,8 +210,3 @@ const getDotSizeElement = document.getElementById("dotSizeRange");
 const selectAllDotsOptionElement = document.getElementById("select-all-dots-mode-option");
 const selectChangeDotsNumsElement = document.getElementById("change-dots-nums-mode-option");
 const selectChangeDotNumElement = document.getElementById("change-dot-num-mode-option");
-
-dotsCanvas.addEventListener('mousedown', startMovingDot);
-dotsCanvas.addEventListener('mousemove', moveDot);
-dotsCanvas.addEventListener('mouseup', stopMovingDot);
-dotsCanvas.addEventListener('mouseout', stopMovingDot);

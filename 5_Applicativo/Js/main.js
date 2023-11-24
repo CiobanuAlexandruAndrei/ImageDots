@@ -69,6 +69,7 @@ function printCanvas() {
 
     let wereDotsConnected = areDotsConnected;
     areDotsConnected = saveMenuIsSolutionIncludedInput.checked;
+
     drawDotCanvas(context);
     areDotsConnected = wereDotsConnected;
 
@@ -76,9 +77,10 @@ function printCanvas() {
         drawDrawingCanvas(context);
     }
 
-    printJS({printable: document.querySelector("#workspace-canvas").toDataURL(), type: 'image', imageStyle: 'width:100%'});
+    printJS({printable: document.querySelector("#workspace-canvas").toDataURL(), type: 'image', imageStyle: 'width:100%', header: saveMenuTitleInput.value});
 
     closeSaveCanvasMenu()
+    context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 /**
@@ -89,9 +91,7 @@ function saveCanvas() {
 
     let wereDotsConnected = areDotsConnected;  // controlla se prima i puntini erano collegati, così le impostazioni di salvataggio non infliggono la visualizzazione precedente.
     areDotsConnected = saveMenuIsSolutionIncludedInput.checked;
-    drawDotCanvas(context);
-    areDotsConnected = wereDotsConnected;
-
+    
     let imageTitle = saveMenuTitleInput.value;
     
     
@@ -105,7 +105,8 @@ function saveCanvas() {
     if(saveMenuAreDrawingsIncludedInput.checked){
         drawDrawingCanvas(context);
     }
-    
+    drawDotCanvas(context);
+    areDotsConnected = wereDotsConnected;
    
     link.href = document.getElementById('workspace-canvas').toDataURL()
     link.click();

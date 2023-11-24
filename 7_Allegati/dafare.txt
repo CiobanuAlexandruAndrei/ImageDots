@@ -10,9 +10,21 @@
 distanza minore di raggio x e raggio y
 
 
+- se schiaccio seleziona tutti, anche se non ci sono puntini esce il cestino.
+- se seleziono una forma, vado dai puntini, non posso più selezionare i puntini
+- seleziona forma, cambia colore, cambia dimensione, cambia riempimento
+- seleziona centrale rettangoli
 - cambiare riempimento e grandezza linee
-- Togliere i puntini dal file scaricato.
+- Togliere i puntini dal file scaricato. (se ho voglia)
 - Sei sicuro prima di fare "Close" che refresha la pagina.
 - Sistemare cambiamento immagine (rimangono le forme disegnate)
+- non si spostano i puntini se stampi, mi ricordo solo che c'era l'opzione selezione attiva (beto bravo)
 - Test
 - Documentazione
+
+
+
+
+Doc:
+aggiungere titoli per ogni metodo.
+main.js non è finito

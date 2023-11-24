@@ -214,7 +214,6 @@ const drawEllipse = event => {
         const newY = scaleCanvasY(event.y);
 
         if (!first) {  // se no quando inizi a disegnare vedi una cosa strana
-
             var w = newX - startX;
             var h = newY - startY;
             var radius = Math.sqrt(Math.pow((startX - newX), 2) + Math.pow((startY - newY), 2));
@@ -227,7 +226,6 @@ const drawEllipse = event => {
             lastEllipse = ellipse;
 
         }
-
         x = newX;
         y = newY;
 
@@ -266,8 +264,6 @@ const drawRect = event => {
             rect.color = drawingColor;
             rect.filled = areShapesFilled;
             rect.draw(drawingContext);
-
-
             lastRect = rect;
         }
 
@@ -296,7 +292,6 @@ const drawLine = event => {
 
         lines.push(line);
 
-        //[x, y] = [newX, newY];
         x = newX;
         y = newY;
     }
@@ -319,14 +314,6 @@ const eraseDrawing = event => {
             }
         }
 
-        for (let i = 0; i < rects.length; i++) {
-            if (Math.abs(rects[i].x + rects[i].width) < newX &&  // TODO: sistemare
-                Math.abs(rects[i].y + rects[i].height) < newY) {
-                rects.splice(i, 1);
-            }
-        }
-
-        //[x, y] = [newX, newY];
         x = newX;
         y = newY;
     }
@@ -351,11 +338,11 @@ function selectDrawings(event) {
 
     if(!selected){
         for(let ellipse of ellipses){
-            let theoricalX = Math.abs(x - ellipse.x);  // si considera ellipse.x come 0, punto di partenza
-            let theoricalY = Math.abs(x - ellipse.y);  // si considera ellipse.y come 0, punto di partenza
-            let distanceFromCenter = Math.sqrt(theoricalX * theoricalX, theoricalY * theoricalY);
+            let theoricalX = (x - ellipse.x) / ellipse.radiusX;  // si considera ellipse.x come 0, punto di partenza
+            let theoricalY = (y - ellipse.y) / ellipse.radiusY;  // si considera ellipse.y come 0, punto di partenza
+            let distanceFromCenter = theoricalX * theoricalX + theoricalY * theoricalY;
             console.log("Distance -> " + distanceFromCenter + "\n" + "Radius X -> " + ellipse.radiusX + "\n" + "Radius Y -> " + ellipse.radiusY);
-            if(distanceFromCenter < ellipse.radiusX && distanceFromCenter < ellipse.radiusY){
+            if(distanceFromCenter <= 1){
                 selected = true;
                 selectedDrawing = ellipse;
                 console.log("yay");
@@ -363,6 +350,7 @@ function selectDrawings(event) {
             }
         }
     }
+
 
     if(!selected){
         clearSelectedDrawing();
