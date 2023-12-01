@@ -11,6 +11,10 @@
  * dei vari canvas e l'immagine viene disegnata.
  */
 function getImgData() {
+    dots = [];
+    lines = [];
+    rects = [];
+    ellipses = [];
     const files = chooseFile.files[0];
     if (files) {
 
@@ -131,3 +135,6 @@ const saveMenuIsSolutionIncludedInput = document.getElementById("saveCanvasInclu
 selectDotsLayer(); 
 
 
+canvas.style.backgroundImage = 'url("../Img/tostart.png")';
+canvas.style.backgroundSize = 'contain';
+canvas.style.backgroundRepeat = 'no-repeat';

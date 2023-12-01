@@ -300,7 +300,6 @@ const drawLine = event => {
 const stopErasingDrawing = () => { isMouseDown = false; }
 const startErasingDrawing = event => {
     isMouseDown = true;
-    [x, y] = [scaleCanvasX(event.x), scaleCanvasY(event.y)];
 }
 const eraseDrawing = event => {
     if (isMouseDown) {
@@ -308,14 +307,14 @@ const eraseDrawing = event => {
         const newY = scaleCanvasY(event.y);
 
         for (let i = 0; i < lines.length; i++) {
-            if (Math.abs(lines[i].fromX - newX) < drawingSize + 1 &&
-                Math.abs(lines[i].fromY - newY) < drawingSize + 1) {
+            if ((Math.abs(lines[i].fromX - newX) < drawingSize + 1 &&
+                Math.abs(lines[i].fromY - newY) < drawingSize + 1) || 
+                (Math.abs(lines[i].toX - newX) < drawingSize + 1 &&
+                Math.abs(lines[i].toY - newY) < drawingSize + 1)) {
                 lines.splice(i, 1);
             }
         }
 
-        x = newX;
-        y = newY;
     }
     refreshDrawingCanvas();
 }
@@ -350,7 +349,6 @@ function selectDrawings(event) {
             }
         }
     }
-
 
     if(!selected){
         clearSelectedDrawing();

@@ -113,21 +113,37 @@ function selectFill() {
         areShapesFilled = false;
         selectDrawingShapeFilledElement.style.backgroundColor = "#F7F7F7";
         selectDrawingShapeFilledElement.getElementsByTagName("img")[0].src = "Img/FillDark.png";
+
     } else {
         areShapesFilled = true;
         selectDrawingShapeFilledElement.style.backgroundColor = "#393E46";
         selectDrawingShapeFilledElement.getElementsByTagName("img")[0].src = "Img/FillLight.png";
+    }
+
+    if(selectedDrawing){
+        selectedDrawing.filled = areShapesFilled;
+        refreshDrawingCanvas();
     }
 }
 
 function getDrawingSize(){
     let range = document.getElementById("drawingSizeRange");
     drawingSize = range.value;
+
+    if(selectedDrawing){
+        selectedDrawing.size = range.value;
+        refreshDrawingCanvas();
+    }
 }
 
 function getDrawingColor(){
     let input = document.getElementById("drawing-color-input");
     drawingColor = input.value;
+
+    if(selectedDrawing){
+        selectedDrawing.color = input.value;
+        refreshDrawingCanvas();
+    }
 }
 
 function selectDeleteDrawingMode(){
